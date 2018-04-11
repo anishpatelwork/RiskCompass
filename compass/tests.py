@@ -3,6 +3,7 @@ from django.urls import resolve
 from django.template.loader import render_to_string
 from django.http import HttpRequest
 from compass.views import home_page
+from compass.models import RMB
 
 # Create your tests here.
 
@@ -16,3 +17,10 @@ class HomePageTest(TestCase):
     def test_uses_home_template(self):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'home.html')
+
+
+class NewRMBTest(TestCase):
+    def test_redirects_after_POST(self):
+        response = self.client.post('/rmb/new', data={})
+        new_rmb = RMB.objects.first()
+        self.assertRedirects(response, f'/rmb/{new_rmb.id}/question/1')

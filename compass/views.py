@@ -31,4 +31,6 @@ def answer(request, rmb_id, question_id, answer_id):
 
 
 def results(request, rmb_id):
-    return render(request, 'results.html')
+    rmb = RMB.objects.get(id=rmb_id)
+
+    return render(request, 'results.html', {'answer_list': rmb.answer_list})

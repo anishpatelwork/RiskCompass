@@ -1,6 +1,16 @@
+<!DOCTYPE html>
 <html>
-    <body>
-        <h1>Hello World</h1>
-        <p>{{answer_list}}</p>
-    </body>
+
+<head>
+    <meta charset="utf-8">
+    <title>Proudly presented by PycCharts</title>
+    {% for jsfile_name in script_list %}
+        <script src="{{ host }}/{{ jsfile_name }}.js"></script>
+    {% endfor %}
+</head>
+
+<body>
+  {{ myechart|safe }}
+</body>
+
 </html>

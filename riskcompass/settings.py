@@ -25,7 +25,7 @@ STATIC_URL = '/static/'
 SECRET_KEY = 'i6j^_c$mwh7*(7p9ldfm-78ssmtb3xsc^8+njr@)+0h=ox-9kp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 

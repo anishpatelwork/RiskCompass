@@ -3,11 +3,12 @@ import json
 
 
 class Quiz(models.Model):
-    name = "Quiz"
+    pass
 
 
 class RMB(models.Model):
     quiz = Quiz.objects.first()
+
     answer_list = models.TextField(default='{}')
 
     def add_answer(self, question_id, answer_id):

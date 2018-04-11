@@ -3,7 +3,7 @@ import json
 
 
 class Quiz(models.Model):
-    pass
+    name = "Quiz"
 
 
 class RMB(models.Model):

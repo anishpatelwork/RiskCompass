@@ -3,7 +3,7 @@ from django.urls import resolve
 from django.template.loader import render_to_string
 from django.http import HttpRequest
 from compass.views import home_page
-from compass.models import RMB
+from compass.models import RMB, Quiz
 
 # Create your tests here.
 
@@ -24,3 +24,10 @@ class NewRMBTest(TestCase):
         response = self.client.post('/rmb/new', data={})
         new_rmb = RMB.objects.first()
         self.assertRedirects(response, f'/rmb/{new_rmb.id}/question/1')
+
+
+class QuizModelTest(TestCase):
+
+    def test_quiz_contains_ten_questions(self):
+        quiz = Quiz.objects.first()
+        self.assertEqual(quiz.questions.count(), 10)

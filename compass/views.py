@@ -40,6 +40,7 @@ REMOTE_HOST = "https://pyecharts.github.io/assets/js"
 def results(request, rmb_id):
     template = loader.get_template('results.html')
     rmb = RMB.objects.get(id=rmb_id)
+
     l3d = radar()
     context = dict(
         myechart=l3d.render_embed(),

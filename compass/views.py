@@ -14,4 +14,21 @@ def new_rmb(request):
 
 
 def question(request, rmb_id, question_id):
-    return render(request, 'question.html')
+    rmb_ = RMB.objects.get(id=rmb_id)
+    question_ = rmb_.quiz.questions.get(id=question_id)
+    return render(request, 'question.html', {'question': question_, 'rmb': rmb_})
+
+
+def answer(request, rmb_id, question_id, answer_id):
+    next_question_id = int(question_id) + 1
+    rmb = RMB.objects.get(id=rmb_id)
+    rmb.add_answer(question_id, answer_id)
+    last_question_id = rmb.quiz.questions.last().id
+    if(next_question_id > last_question_id):
+        return redirect(f'/rmb/{rmb_id}/results')
+    else:
+        return redirect(f'/rmb/{rmb_id}/question/{next_question_id}')
+
+
+def results(request, rmb_id):
+    return render(request, 'results.html')

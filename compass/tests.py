@@ -25,6 +25,12 @@ class NewRMBTest(TestCase):
         new_rmb = RMB.objects.first()
         self.assertRedirects(response, f'/rmb/{new_rmb.id}/question/1')
 
+    def test_new_rmb_contains_quiz_and_empty_answers(self):
+        response = self.client.post('/rmb/new', data={})
+        new_rmb = RMB.objects.first()
+        self.assertEqual(new_rmb.quiz.questions.count(), 10)
+        self.assertEqual(new_rmb.answer_list, '{}')
+
 
 class QuizModelTest(TestCase):
 

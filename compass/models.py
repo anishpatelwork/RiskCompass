@@ -1,14 +1,13 @@
 from django.db import models
 
-# Create your models here.
-
-
-class RMB(models.Model):
-    pass
-
 
 class Quiz(models.Model):
     pass
+
+
+class RMB(models.Model):
+    quiz = Quiz.objects.first()
+    answer_list = models.TextField(default='{}')
 
 
 class Question(models.Model):

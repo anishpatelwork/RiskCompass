@@ -6,10 +6,19 @@ class Quiz(models.Model):
     pass
 
 
+DEFAULT_QUIZ_ID = 1
+
+
 class RMB(models.Model):
-    quiz = Quiz.objects.first()
+    # quiz = Quiz.objects.first()
+    quiz = models.ForeignKey(Quiz, related_name='rmb', on_delete=models.CASCADE, default=DEFAULT_QUIZ_ID)
 
     answer_list = models.TextField(default='{}')
+
+    # @classmethod
+    # def create(cls, quiz):
+    #     rmb = cls(quiz=quiz)
+    #     return rmb
 
     def add_answer(self, question_id, answer_id):
         answers = json.loads(self.answer_list)

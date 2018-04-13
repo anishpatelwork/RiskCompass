@@ -1,16 +1,21 @@
-<!DOCTYPE html>
-<html>
+{% extends 'base.html' %}
 
-<head>
-    <meta charset="utf-8">
-    <title>Risk Compass</title>
+{% block extra_scripts %}
     {% for jsfile_name in script_list %}
         <script src="{{ host }}/{{ jsfile_name }}.js"></script>
     {% endfor %}
-</head>
+{% endblock %}
 
-<body>
-  {{ myechart|safe }}
-</body>
+{% block header %}
+<h1>Results</h1>
+{% endblock %}
 
-</html>
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col">{{myechart|safe}}</div>
+        <div class="col">By changing ... you'll be able to improve x</div>
+    </div>
+</div>
+    {{myechart|safe}}
+{% endblock %}

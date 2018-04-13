@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
-{% block header %}
-<h1>{{ question.description }}</h1>
-{% endblock %}
 
 {% block content %}
-<div class="list-group">
-    {% for answer in question.answers.all %}
-        {% url 'answer' rmb.id question.id answer.id as answer_url %}
-        <a href="{{answer_url}}" class="list-group-item list-group-item-action">{{answer.description}}</a>
-    {% endfor %}
-</div>
+    <div class="row">
+        <h1>{{ question.description }}</h1>
+    </div>
+    <div class="row">
+        <div class="list-group w-100">
+            {% for answer in question.answers.all %}
+                {% url 'answer' rmb.id question.id answer.id as answer_url %}
+                <a href="{{answer_url}}" class="list-group-item list-group-item-action">{{answer.description}}</a>
+            {% endfor %}
+    </div>
 {% endblock %}

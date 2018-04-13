@@ -1,0 +1,14 @@
+body {
+    font-family: 'Roboto';
+    color:rgb(73,73,73);
+    background-color: rgb(239,239,239);
+}
+h1 {
+    color:rgb(73,73,73);
+    font-family: 'Oswald';
+    font-size:28px;
+}
+span {
+    color:rgb(196,32,50);
+    font-size: 64px;
+}

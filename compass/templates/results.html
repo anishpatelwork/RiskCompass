@@ -1,21 +1,110 @@
 {% extends 'base.html' %}
 
 {% block extra_scripts %}
-    {% for jsfile_name in script_list %}
-        <script src="{{ host }}/{{ jsfile_name }}.js"></script>
-    {% endfor %}
-{% endblock %}
-
-{% block header %}
-<h1>Results</h1>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="row">
-        <div class="col">{{myechart|safe}}</div>
-        <div class="col">By changing ... you'll be able to improve x</div>
-    </div>
-</div>
+        <div class="row">
+            <div class="col-sm">
+                <canvas id="myChart"></canvas>
+            </div>
+            <div class="col-sm align-self-center">
+                <div id="accordion">
+                  <div class="card">
+                    <div class="card-header" id="headingOne">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          Event Response
+                        </button>
+                      </h5>
+                    </div>
+
+                    <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                      <div class="card-body">
+                        Improve event response by x, y, z
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingTwo">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          Cat Modeling
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                      <div class="card-body">
+                        Improve Cat Modeling by x, y, z
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="headingThree">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                          Non-Modeled
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                      <div class="card-body">
+                        Improve non-modeled by x,y,z
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            var ctx = document.getElementById('myChart').getContext('2d');
+            Chart.defaults.global.defaultFontColor = 'rgb(73, 73, 73)';
+
+            var chart = new Chart(ctx, {
+                // The type of chart we want to create
+                type: 'radar',
+
+                // The data for our dataset
+                data: {
+                    labels: ["Data Quality", "Cat Modeling", "Non Modeled", "Profiling Submissions", "Pricing", "Binding", "Capacity Management", "Risk Transfer", "Event Response", "Reporting"],
+                    datasets: [{
+                        label: "Results",
+                        // backgroundColor: 'rgb(255, 99, 132)',
+                        fill: false,
+                        borderColor: 'rgb(196, 32, 50)',
+                        borderWidth: 2,
+                        pointRadius: 3,
+                        pointStyle: 'circle',
+                        pointBackgroundColor: 'rgb(196, 32, 50)',
+                        pointBorderColor: 'rgb(196, 32, 50)',
+                        data: [3, 2, 2, 5, 3, 5, 3, 5, 1, 4],
+                    }]
+                },
+
+                // Configuration options go here
+                options: {
+                    tooltips: {
+                        enabled: false
+                    },
+                    legend: {
+                        display: false
+                    },
+                    scale: {
+                        pointLabels: {
+                            fontSize: 14,
+                            fontFamily: 'Roboto',
+                        },
+                        ticks: {
+                            display: false,
+                            min: 0,
+                            max: 5,
+                            stepSize: 1
+                        }
+                    }
+                }
+            });
+        </script>
     {{myechart|safe}}
 {% endblock %}

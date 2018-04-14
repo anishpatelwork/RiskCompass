@@ -4,12 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "*"
+Django = "*"
 gunicorn = "*"
 django-heroku = "*"
 "psycopg2" = "*"
 whitenoise = "*"
-pyecharts = "*"
 
 [dev-packages]
 

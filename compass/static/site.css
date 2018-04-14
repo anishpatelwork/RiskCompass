@@ -12,3 +12,9 @@ span {
     color:rgb(196,32,50);
     font-size: 64px;
 }
+.chart-container {
+  position: relative;
+  margin: auto;
+  height: 80vh;
+  width: 80vw;
+}

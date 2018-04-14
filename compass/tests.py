@@ -32,6 +32,21 @@ class NewRMBTest(TestCase):
         self.assertEqual(new_rmb.answer_list, '{}')
 
 
+class RMBModelTest(TestCase):
+    def test_get_answer_integer_array_returns_integers(self):
+        rmb = RMB.objects.create()
+        rmb.add_answer(1, 4)
+        rmb.add_answer(2, 8)
+        rmb.add_answer(3, 12)
+        results = rmb.get_answers_integer_array()
+        expectedResults = [4, 8, 12]
+        self.assertCountEqual(results, expectedResults)
+        sum = 0
+        for result in results:
+            sum = sum + result
+        self.assertEqual(sum, 24)
+
+
 class QuizModelTest(TestCase):
 
     def test_quiz_contains_ten_questions(self):

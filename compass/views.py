@@ -38,5 +38,5 @@ REMOTE_HOST = "https://pyecharts.github.io/assets/js"
 
 def results(request, rmb_id):
     rmb = RMB.objects.get(id=rmb_id)
-    data = [3, 2, 2, 5, 3, 5, 3, 5, 1, 4]
+    data = rmb.get_answer_score_array()
     return render(request, 'results.html', {'data': data})

@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.template import loader
 from compass.models import RMB
-from pyecharts import Radar
 import math
 
 # Create your views here.
@@ -38,22 +37,6 @@ REMOTE_HOST = "https://pyecharts.github.io/assets/js"
 
 
 def results(request, rmb_id):
-    template = loader.get_template('results.html')
     rmb = RMB.objects.get(id=rmb_id)
-
-    l3d = radar()
-    context = dict(
-        myechart=l3d.render_embed(),
-        host=REMOTE_HOST,
-        script_list=l3d.get_js_dependencies()
-    )
-    return HttpResponse(template.render(context, request))
-
-
-def radar():
-    schema = [("Data Quality", 5), ("Cat Modeling", 5), ("Non Modeled", 5), ("Profiling Submissions", 5), ("Pricing", 5), ("Binding", 5), ("Capacity Management", 5), ("Risk Transfer", 5), ("Event Response", 5), ("Reporting", 5)]
-    radar = Radar()
-    v1 = [[3, 2, 2, 5, 3, 5, 3, 5, 1, 4]]
-    radar.config(schema, shape="polygon")
-    radar.add("Results", v1, is_legend_show=False, is_label_show=False, is_toolbox_show=False)
-    return radar
+    data = [3, 2, 2, 5, 3, 5, 3, 5, 1, 4]
+    return render(request, 'results.html', {'data': data})

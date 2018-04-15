@@ -25,6 +25,10 @@ span {
   height: 80vh;
   width: 80vw;
 }
+.btn-link{
+  font-family: 'Oswald';
+  color:rgb(73,73,73);
+}
 
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }

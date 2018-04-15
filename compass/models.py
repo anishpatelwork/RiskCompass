@@ -34,6 +34,16 @@ class RMB(models.Model):
             returnArray.append(answer.score)
         return returnArray
 
+    def get_recommendations(self):
+        answers = json.loads(self.answer_list)
+        returnDict = {}
+        for q_id, a_id in answers.items():
+            answer = Answer.objects.get(id=a_id)
+            if(answer.score < 5):
+                question = Question.objects.get(id=q_id)
+                returnDict[question] = answer.recommendation
+        return returnDict
+
 
 class Question(models.Model):
     category = models.TextField(default='')
@@ -45,3 +55,4 @@ class Answer(models.Model):
     description = models.TextField(default='')
     score = models.IntegerField(default=0)
     question = models.ForeignKey(Question, related_name='answers', on_delete=models.CASCADE)
+    recommendation = models.TextField(default='Contact Anish Patel for more information')

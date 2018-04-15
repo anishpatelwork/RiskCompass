@@ -42,4 +42,6 @@ def results(request):
     rmb_id = request.session['rmb_id']
     rmb = RMB.objects.get(id=rmb_id)
     data = rmb.get_answer_score_array()
-    return render(request, 'results.html', {'data': data})
+    recommendations = rmb.get_recommendations()
+    print(recommendations)
+    return render(request, 'results.html', {'data': data, 'recommendations': recommendations})

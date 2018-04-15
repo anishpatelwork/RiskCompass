@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-sm-8">
             <div class="row">
-                <h1>Data Quality</h1>
+                <h1>{{question.category}}</h1>
             </div>
             <div class="row" style="height:10px;">
             </div>
@@ -24,7 +24,7 @@
     <div class="row">
         <div class="list-group w-100">
             {% for answer in question.answers.all %}
-                {% url 'answer' rmb.id question.id answer.id as answer_url %}
+                {% url 'answer' question.id answer.id as answer_url %}
                 <a href="{{answer_url}}" class="list-group-item list-group-item-action">{{answer.description}}</a>
             {% endfor %}
     </div>

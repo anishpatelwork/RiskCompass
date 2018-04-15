@@ -36,6 +36,7 @@ class RMB(models.Model):
 
 
 class Question(models.Model):
+    category = models.TextField(default='')
     description = models.TextField(default='')
     quiz = models.ForeignKey(Quiz, related_name='questions', on_delete=models.CASCADE)
 

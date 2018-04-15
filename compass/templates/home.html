@@ -15,7 +15,8 @@
     </div>
 <div class="row">
     <div class="container">
-        <a href="rmb/new" class="btn btn-primary float-right" role="button">Lets do this!</a>
+        {% url 'new_rmb' as new_rmb_url %}
+        <a href={{new_rmb_url}} class="btn btn-primary float-right" role="button">Lets do this!</a>
     </div>
 </div>
 {% endblock %}

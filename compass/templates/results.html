@@ -13,6 +13,7 @@
                 </div>
             </div>
             <div class="col-md-4 align-self-center">
+                <h1>Recommendations</h1>
                 <div id="accordion">
                   {% for question, recommendation in recommendations.items %}
                   <div class="card">
@@ -44,7 +45,6 @@
                     labels: ["Data Quality", "Cat Modeling", "Non Modeled", "Profiling Submissions", "Pricing", "Binding", "Capacity Management", "Risk Transfer", "Event Response", "Reporting"],
                     datasets: [{
                         label: "Results",
-                        // backgroundColor: 'rgb(255, 99, 132)',
                         fill: false,
                         borderColor: 'rgb(196, 32, 50)',
                         borderWidth: 2,
@@ -53,6 +53,17 @@
                         pointBackgroundColor: 'rgb(196, 32, 50)',
                         pointBorderColor: 'rgb(196, 32, 50)',
                         data: {{data}},
+                    },
+                    {
+                        label: "Benchmark",
+                        fill: false,
+                        borderColor: 'rgb(112, 155, 154)',
+                        borderWidth: 2,
+                        pointRadius: 3,
+                        pointStyle: 'circle',
+                        pointBackgroundColor: 'rgb(112, 155, 154)',
+                        pointBorderColor: 'rgb(112, 155, 154)',
+                        data: [3,4,3,5,2,4,4,5,2,1],
                     }]
                 },
 
@@ -64,7 +75,7 @@
                         enabled: false
                     },
                     legend: {
-                        display: false
+                        display: false,
                     },
                     scale: {
                         pointLabels: {

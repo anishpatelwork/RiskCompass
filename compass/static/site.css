@@ -19,12 +19,42 @@ span {
     color:rgb(196,32,50);
     font-size: 2.4em;
 }
-.chart-container {
-  position: relative;
-  margin: auto;
-  height: 80vh;
-  width: 80vw;
+
+.card{
+  border-color: rgb(73,73,73);
+  border-style: solid;
+  border-width: 2px;
 }
+
+.card:hover, .card:focus, .card:active{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.card-body{
+    font-family: 'Roboto';
+    color: rgb(73,73,73);
+    font-size: 1em;
+    background-color: rgb(245,245,245);
+    text-align: center;
+
+}
+.btn-primary{
+  background-color: rgb(192,32,50);
+  border-color: rgb(192,32,50);
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgb(192,32,50);
+    border-color: rgb(192,32,50);
+}
+
+.btn-primary:active, .btn-primary.active {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background-color: rgb(192,32,50);
+    border-color: rgb(192,32,50);
+}
+
 .btn-link{
   font-family: 'Oswald';
   color:rgb(73,73,73);

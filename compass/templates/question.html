@@ -2,8 +2,6 @@
 
 {% block content %}
 
-    <div class="row" style="height:20px;">
-    </div>
     <div class="row">
         <div class="col-sm-8">
             <div class="row">
@@ -22,10 +20,15 @@
     <div class="row" style="height:20px;">
     </div>
     <div class="row">
-        <div class="list-group w-100">
-            {% for answer in question.answers.all %}
-                {% url 'answer' question.id answer.id as answer_url %}
-                <a href="{{answer_url}}" class="list-group-item list-group-item-action">{{answer.description}}</a>
-            {% endfor %}
+        {% for answer in question.answers.all %}
+        {% url 'answer' question.id answer.id as answer_url %}
+            <div class="col-sm-6">
+                <div class="card h-100">
+                    <a href="{{answer_url}}" class="card-body">
+                        {{answer.description}}
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}

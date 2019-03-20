@@ -57,18 +57,20 @@ class QuizModelTest(TestCase):
 class AnswerTest(TestCase):
 
     def test_answer_redirects_to_next_question(self):
-        session = self.client.session
-        session['rmb_id'] = 1
-        session.save()
         rmb = RMB.objects.create()
+        session = self.client.session
+        session['rmb_id'] = rmb.id
+        session.save()
+        
         response = self.client.post('/question/1/answer/1')
         self.assertRedirects(response, f'/question/2')
 
     def test_answer_redirects_last_question_to_results(self):
-        session = self.client.session
-        session['rmb_id'] = 1
-        session.save()
         rmb = RMB.objects.create()
+        session = self.client.session
+        session['rmb_id'] = rmb.id
+        session.save()
+        
         last_question = rmb.quiz.questions.last().id
         response = self.client.post(f'/question/{last_question}/answer/1')
         self.assertRedirects(response, f'/results')

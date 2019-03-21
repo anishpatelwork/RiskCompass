@@ -1,27 +1,26 @@
 body {
-    font-family: 'Roboto';
-    color:rgb(73,73,73);
-    background-color: rgb(239,239,239);
+    font-family: 'Gotham Book';
+    color:rgb(84,88,90);
+    background-color: rgb(255,255,255);
     font-size:1em;
 }
 h1 {
-    color:rgb(73,73,73);
-    font-family: 'Oswald';
-    font-size:2em;
+    color:rgb(84,88,90);
+    font-family: 'Gotham Light';
+    font-size:2.4em;
+}
+.display-3 {
+    color:rgb(84,88,90);
+    font-family: 'Gotham Light';
 }
 h2 {
-    font-family: 'Roboto';
-    color:rgb(73,73,73);
-    background-color: rgb(239,239,239);
+    font-family: 'Gotham Light';
+    color:rgb(84,88,90);
+    background-color: rgb(255,255,255);
     font-size:1.2em;
 }
-span {
-    color:rgb(196,32,50);
-    font-size: 2.4em;
-}
-
 .card{
-  border-color: rgb(73,73,73);
+  border-color: rgb(84,88,90);
   border-style: solid;
   border-width: 2px;
 }
@@ -31,33 +30,33 @@ span {
 }
 
 .card-body{
-    font-family: 'Roboto';
-    color: rgb(73,73,73);
+    font-family: 'Gotham Book';
+    color: rgb(84,88,90);
     font-size: 1em;
-    background-color: rgb(245,245,245);
+    background-color: rgb(255,255,255);
     text-align: center;
 
 }
 .btn-primary{
-  background-color: rgb(192,32,50);
-  border-color: rgb(192,32,50);
+  background-color: rgb(196,18,48);
+  border-color: rgb(196,18,48);
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background-color: rgb(192,32,50);
-    border-color: rgb(192,32,50);
+    background-color: rgb(196,18,48);
+    border-color: rgb(196,18,48);
 }
 
 .btn-primary:active, .btn-primary.active {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background-color: rgb(192,32,50);
-    border-color: rgb(192,32,50);
+    background-color: rgb(196,18,48);
+    border-color: rgb(196,18,48);
 }
 
 .btn-link{
-  font-family: 'Oswald';
-  color:rgb(73,73,73);
+  font-family: 'Gotham Book';
+  color:rgb(84,88,90);
 }
 
 .material-icons.md-18 { font-size: 18px; }

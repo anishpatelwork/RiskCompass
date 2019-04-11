@@ -9,9 +9,12 @@ h1 {
     font-family: 'Gotham Light';
     font-size:2.4em;
 }
-.display-3 {
+.display-4 {
     color:rgb(84,88,90);
     font-family: 'Gotham Light';
+}
+.logo-rms {
+    position: left;
 }
 h2 {
     font-family: 'Gotham Light';

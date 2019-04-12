@@ -7,3 +7,4 @@ db.sqlite3
 local_settings.py
 .python-version
 .vscode
+.pytest_cache

@@ -12,7 +12,7 @@ DEFAULT_QUIZ_ID = 1
 class RMB(models.Model):
     quiz = models.ForeignKey(Quiz, related_name='rmb', on_delete=models.CASCADE, default=DEFAULT_QUIZ_ID)
     answer_list = models.TextField(default='{}')
-
+    
     def add_answer(self, question_id, answer_id):
         answers = json.loads(self.answer_list)
         answers[question_id] = answer_id
@@ -56,3 +56,13 @@ class Answer(models.Model):
     score = models.IntegerField(default=0)
     question = models.ForeignKey(Question, related_name='answers', on_delete=models.CASCADE)
     recommendation = models.TextField(default='Contact Anish Patel for more information')
+
+class UserDetails(models.Model):
+    rmb = models.ForeignKey(RMB, related_name='user_details', on_delete=models.CASCADE)
+    first_name = models.TextField(default='')
+    last_name = models.TextField(default='')
+    company = models.TextField(default='')
+    sector = models.TextField(default='')
+    email = models.TextField(default='')
+    role = models.TextField(default='')
+

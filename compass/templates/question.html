@@ -20,15 +20,43 @@
     <div class="row" style="height:20px;">
     </div>
     <div class="row">
-        {% for answer in question.answers.all %}
-        {% url 'answer' question.id answer.id as answer_url %}
+        <div class="col-sm-4">
+                <label for="customRange1">Example range</label>
+                <input type="range" class="custom-range" id="customRange1">
+        </div>
+    </div>
+    <div class="row">
+        <div class="container">
+            <div class="row">
             <div class="col-sm-6">
-                <div class="card h-100">
-                    <a href="{{answer_url}}" class="card-body">
-                        {{answer.description}}
-                    </a>
+                    {% for answer in question.answers.all %}
+                    {% url 'answer' question.id answer.id as answer_url %}
+                        <div class="row">
+                                <div class="col">
+                                    <div class="card h-100">
+                                        <a href="{{answer_url}}" class="card-body">
+                                            {{answer.description}}
+                                        </a>
+                                    </div>
+                                </div>
+                        </div>
+                    {% endfor %}
+            </div>
+            <div class="col-sm-6">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h1>Additional Comments</h1>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <textarea aria-label="Additional Comments"></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
-        {% endfor %}
+        </div>
+        </div>
     </div>
 {% endblock %}

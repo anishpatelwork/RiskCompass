@@ -23,5 +23,6 @@ urlpatterns = [
     path('rmb/new', views.new_rmb, name='new_rmb'),
     path('question/<question_id>', views.question, name='question'),
     path('question/<question_id>/answer/<answer_id>', views.answer, name='answer'),
-    path('results', views.results, name='results')
+    path('results', views.results, name='results'),
+    path('userdetails', views.userdetails, name='userdetails')
 ]

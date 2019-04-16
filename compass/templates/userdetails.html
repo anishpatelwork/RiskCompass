@@ -12,31 +12,18 @@
     </div>
     <div class="row">
        <div class="col-md-4 mx-auto">
-          <div class="myform form ">
              <form action="" method="post" name="userdetails">
                     {% csrf_token %}
-                <div class="form-group">
-                   <input type="text" name="first_name"  class="form-control my-input" id="first_name" placeholder="First Name">
-                </div>
-                <div class="form-group">
-                    <input type="text" name="last_name"  class="form-control my-input" id="last_name" placeholder="Last Name">
-                 </div>
-                <div class="form-group">
-                   <input type="text" name="email"  class="form-control my-input" id="email" placeholder="Email">
-                </div>
-                <div class="form-group">
-                    <input type="text" name="role"  class="form-control my-input" id="role" placeholder="Role">
-                 </div>
-                 <div class="form-group">
-                    <input type="text" name="company"  class="form-control my-input" id="company" placeholder="Company">
-                 </div>
-                 <div class="form-group">
-                    <input type="text" name="sector"  class="form-control my-input" id="sector" placeholder="Sector">
-                 </div>
+
+                    {% for field in form %}
+                        <div class="form-group">
+                            {{ field }}
+                        </div>
+                    {% endfor %}
                 <div class="text-center ">
                    <button type="submit" class=" btn btn-primary send-button tx-tfm">Lets go!</button>
                 </div>
-                
+
                 <p class="small mt-3">By signing up, you are indicating that you have read and agree to the <a href="#" class="ps-hero__content__link">Terms of Use</a> and <a href="#">Privacy Policy</a>.
                 </p>
              </form>

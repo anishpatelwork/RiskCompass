@@ -31,6 +31,7 @@ class Answer(models.Model):
     def __str__(self):
         return self.description
 
+
 class UserDetails(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -48,21 +49,15 @@ class UserDetails(models.Model):
 class Results(models.Model):
     userdetails = models.OneToOneField(UserDetails, related_name='results', on_delete=models.CASCADE, default=DEFAULT_QUIZ_ID)
     quiz = models.ForeignKey(Quiz, related_name='quizresults', on_delete=models.CASCADE, default = DEFAULT_QUIZ_ID)
-    answer_list = models.TextField(default='{}')
     date = models.DateField(default=datetime.date.today)
+    # Tabular inline for question choices
+    # answers = models.ManyToManyField('Result_Answer', related_name='results')
 
-    def add_answer(self, question_id, answer_id):
-        answers = json.loads(self.answer_list)
-        answers[question_id] = answer_id
-        self.answer_list = json.dumps(answers)
+    def add_answer(self, question_id, comment):
+        comments = json.loads(self.comment_list)
+        comments[question_id] = comment
+        self.comment_list = json.dumps(comments)
         self.save()
-
-    def get_answers_integer_array(self):
-        answers = json.loads(self.answer_list)
-        returnArray = []
-        for key, value in answers.items():
-            returnArray.append(int(value))
-        return returnArray
 
     def get_answer_score_array(self):
         answers = json.loads(self.answer_list)
@@ -72,16 +67,6 @@ class Results(models.Model):
             returnArray.append(answer.score)
         return returnArray
 
-    def get_recommendations(self):
-        answers = json.loads(self.answer_list)
-        returnDict = {}
-        for q_id, a_id in answers.items():
-            answer = Answer.objects.get(id=a_id)
-            if (answer.score < 5):
-                question = Question.objects.get(id=q_id)
-                returnDict[question] = answer.recommendation
-        return returnDict
-
         # Rename it for the plural state
 
     class Meta:
@@ -89,3 +74,15 @@ class Results(models.Model):
 
     def __str__(self):
         return ("Quiz %s" % (self.date))
+
+# want to see result answer inside result
+class Question_choice(models.Model):
+    answer = models.ForeignKey(Answer, related_name='result_answers', on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, related_name='results_answers', on_delete=models.CASCADE)
+    comment = models.TextField(default='')
+    question_choice = models.ForeignKey(Results, related_name='results_answers', on_delete=models.CASCADE)
+    class Meta:
+        verbose_name_plural = "Result Answers"
+
+    def __str__(self):
+        return ("Question: %s \n Answer score: %s \n Comment: %s" % (self.question.description, self.answer.score, self.comment))

@@ -1,8 +1,7 @@
-from django.forms import ModelForm
-
+from django import forms
 from .models import UserDetails
 
-class UserDetailForm(ModelForm):
+class UserDetailForm(forms.ModelForm):
     class Meta:
         model = UserDetails
         fields = ('first_name', 'last_name', 'email', 'company', 'sector', 'role')
@@ -35,3 +34,4 @@ class UserDetailForm(ModelForm):
             'class': 'form-control my-input',
             'name': 'Role',
             'placeholder': 'Role'}
+

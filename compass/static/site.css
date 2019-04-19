@@ -22,15 +22,6 @@ h2 {
     background-color: rgb(255,255,255);
     font-size:1.2em;
 }
-.card{
-  border-color: rgb(84,88,90);
-  border-style: solid;
-  border-width: 2px;
-}
-
-.card:hover, .card:focus, .card:active{
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
 
 .card-body{
     font-family: 'Gotham Book';
@@ -61,6 +52,29 @@ h2 {
   font-family: 'Gotham Book';
   color:rgb(84,88,90);
 }
+
+label {
+  width: 100%;
+  font-size: 1rem;
+}
+
+
+#answer-choices :hover{
+  cursor: pointer;
+  opacity:0.5;
+}
+
+
+#answer-choices input[type="radio"]:checked{
+  margin-left: 25px !important;
+  border: 1px solid blue;
+}
+
+:checked {
+  margin-left: 25px !important;
+  border: 1px solid blue;
+}
+
 
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }

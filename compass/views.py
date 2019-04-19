@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from compass.models import Results, Answer, Question_choice, Question
-from compass.forms import UserDetailForm
+from compass.forms import UserDetailForm, AnswerChoiceForm
 
 
 def home_page(request):
@@ -32,44 +32,44 @@ def userdetails(request):
     form = UserDetailForm()
     return render(request, 'userdetails.html', {'form': form})
 
-def question(request, question_id):
-    # Need to get the result answer and if null just return the question
+
+def get_questions(request, question_id):
     rmb_id = request.session['rmb_id']
     rmb_ = Results.objects.get(id=rmb_id)
-    question = Question.objects.get(id=question_id)
-    question_ = rmb_.quiz.questions.get(id=question_id)
-    if Question_choice.objects.filter(question_choice=rmb_, question= question).exists():
-        # If the object exists and the user wants to modify
-        results_answers = Question_choice.objects.get(question=question_id)
-        return render(request, 'question.html', {'question': question_, 'rmb': rmb_, 'answer': results_answers})
-
-    return render(request, 'question.html', {'question': question_, 'rmb': rmb_})
-
-
-# Create a form for each of the questions. Validate here and add to results with comments
-def answer(request, question_id, answer_id):
-    # get the result_answer with the question id
-    # if empty return empty and new form
-    # else return all items with selected and comment
     next_question_id = int(question_id) + 1
-    rmb_id = request.session['rmb_id']
-    answer = Answer.objects.get(id=answer_id)
-    question = Question.objects.get(id=question_id)
-    rmb = Results.objects.get(id=rmb_id)
 
-    if Question_choice.objects.filter(question_choice=rmb, question= question).exists():
-        # If the object exists and the user wants to modify
-        Question_choice.objects.filter(question=question).update(answer = answer)
-    else:
-        Question_choice.objects.create(question = question, answer = answer, question_choice = rmb)
+    last_question_id = rmb_.quiz.questions.last().id
 
-    # Need the comment to add here as well
-    # rmb.add_answer(question_id, answer_id, 'Temp for now')
-    last_question_id = rmb.quiz.questions.last().id
-    if(next_question_id > last_question_id):
+    if (next_question_id > last_question_id):
         return redirect(f'/results')
-    else:
-        return redirect(f'/question/{next_question_id}')
+
+    try:
+        question_ = Question.objects.get(id=question_id)
+    except Question.DoesNotExist:
+        return render(request, '404.html')
+
+    if request.method == "POST":
+        form = AnswerChoiceForm(data=request.POST, question_id=question_id)
+        if form.is_valid():
+            answer_choice = form.save(commit=False)
+            answer_choice.comment = form.cleaned_data['comment']
+            answer_choice.answer = form.cleaned_data['answer']
+            answer_choice.question = question_
+            answer_choice.question_choice = rmb_
+            answer_choice.save()
+            return redirect(f'/question/{next_question_id}')
+
+    # Setting the form
+    form = AnswerChoiceForm(question_id=question_id)
+
+    # If the question has already been answered
+    if Question_choice.objects.filter(question_choice=rmb_, question=question_).exists():
+        # If the object exists and the user wants to modify
+        results_answers = Question_choice.objects.get(question=question_id, question_choice=rmb_)
+        form.fields['answer'].initial = results_answers.answer
+        form.fields['comment'].initial = results_answers.comment
+
+    return render(request, 'question.html', {'question': question_, 'rmb': rmb_, 'form': form})
 
 
 def results(request):
@@ -77,7 +77,6 @@ def results(request):
     rmb = Results.objects.get(id=rmb_id)
     choices = Question_choice.objects.filter(question_choice=rmb)
     answer_array = []
-    #data = rmb.get_answer_score_array()
     for c in choices:
         answer = Answer.objects.get(description = c.answer)
         answer_array.append(answer.score)

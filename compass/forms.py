@@ -1,5 +1,5 @@
 from django import forms
-from .models import UserDetails
+from .models import UserDetails, Question_choice, Answer, Question
 
 class UserDetailForm(forms.ModelForm):
     class Meta:
@@ -35,3 +35,20 @@ class UserDetailForm(forms.ModelForm):
             'name': 'Role',
             'placeholder': 'Role'}
 
+
+# we need
+class AnswerChoiceForm(forms.ModelForm):
+    answer = forms.ModelChoiceField(queryset=None, empty_label=None, widget=forms.RadioSelect())
+    comment = forms.CharField(required=False, widget=forms.Textarea())
+
+    class Meta:
+        model = Question_choice
+        fields = ('answer', 'comment')
+
+
+    def __init__(self, question_id, *args, **kwargs):
+        super(AnswerChoiceForm, self).__init__(*args, **kwargs)
+        answers = Answer.objects.filter(question = question_id)
+        self.fields["answer"].queryset = answers
+        self.fields['answer'].widget.attrs = {
+            'class': 'card-input-element'}

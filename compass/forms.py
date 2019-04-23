@@ -4,9 +4,8 @@ from .models import UserDetails, Question_choice, Answer, Question
 class UserDetailForm(forms.ModelForm):
     class Meta:
         model = UserDetails
-        fields = ('first_name', 'last_name', 'email', 'company', 'sector', 'role')
+        fields = ('first_name', 'last_name', 'email', 'company', 'role')
 
-    # we can take a look at Django widget tweaks but wan't to keep the dependencies to a min
     def __init__(self, *args, **kwargs):
         super(UserDetailForm, self).__init__(*args, **kwargs)
         self.fields['first_name'].widget.attrs = {
@@ -22,21 +21,17 @@ class UserDetailForm(forms.ModelForm):
             'name': 'Email',
             'type': 'email',
             'placeholder': 'Email'}
+        self.fields['email'].error_messages['unique'] = 'This email has already registered'
         self.fields['company'].widget.attrs = {
             'class': 'form-control my-input',
             'name': 'Company',
             'placeholder': 'Company'}
-        self.fields['sector'].widget.attrs = {
-            'class': 'form-control my-input',
-            'name': 'Sector',
-            'placeholder': 'Sector'}
         self.fields['role'].widget.attrs = {
             'class': 'form-control my-input',
             'name': 'Role',
             'placeholder': 'Role'}
 
 
-# we need
 class AnswerChoiceForm(forms.ModelForm):
     answer = forms.ModelChoiceField(queryset=None, empty_label=None, widget=forms.RadioSelect())
     comment = forms.CharField(required=False, widget=forms.Textarea())
@@ -48,7 +43,5 @@ class AnswerChoiceForm(forms.ModelForm):
 
     def __init__(self, question_id, *args, **kwargs):
         super(AnswerChoiceForm, self).__init__(*args, **kwargs)
-        answers = Answer.objects.filter(question = question_id)
+        answers = Answer.objects.filter(question = question_id).order_by('score')
         self.fields["answer"].queryset = answers
-        self.fields['answer'].widget.attrs = {
-            'class': 'card-input-element'}

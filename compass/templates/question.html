@@ -14,7 +14,7 @@
             </div>
         </div>
         <div class="col-sm-4">
-            <h1><div class="float-right">{{question.id}} of 10</div></h1>
+            <h1><div class="float-right">{{question.id}} of {{CountQuestions}}</div></h1>
         </div>
     </div>
     <div class="row" style="height:20px;">
@@ -42,15 +42,15 @@
             {% if question.id > 1%}
                 {% url 'question' question.id|last_question as question_back %}
                     <a href="{{question_back}}">
-                        <input type="button" class=" btn btn-primary send-button tx-tfm" type="button" value="Previous" />
+                        <input type="button" class="btn btn-primary send-button tx-tfm" id="backButton" style="float:left;" value="Previous" />
                     </a>
 
             {% endif %}
 
             {% if question.id < 10 %}
-                <button type="submit" class=" btn btn-primary send-button tx-tfm">Next</button>
+                <button type="submit" class="btn btn-primary send-button tx-tfm" style="float:right;">Save</button>
             {% else %}
-                <button type="submit" class=" btn btn-primary send-button tx-tfm">Submit</button>
+                <button type="submit" class="btn btn-primary send-button tx-tfm" style="float:right;">Results</button>
             {% endif %}
         </div>
      </form>

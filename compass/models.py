@@ -22,6 +22,7 @@ class Question(models.Model):
     def __str__(self):
         return self.category
 
+
 class Answer(models.Model):
     description = models.TextField(default='')
     score = models.IntegerField(default=0)
@@ -37,7 +38,6 @@ class UserDetails(models.Model):
     last_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     company = models.CharField(max_length=100)
-    sector = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
 
     def __str__(self):
@@ -46,12 +46,11 @@ class UserDetails(models.Model):
     class Meta:
         verbose_name_plural = "User Details"
 
+
 class Results(models.Model):
     userdetails = models.OneToOneField(UserDetails, related_name='results', on_delete=models.CASCADE, default=DEFAULT_QUIZ_ID)
     quiz = models.ForeignKey(Quiz, related_name='quizresults', on_delete=models.CASCADE, default = DEFAULT_QUIZ_ID)
     date = models.DateField(default=datetime.date.today)
-    # Tabular inline for question choices
-    # answers = models.ManyToManyField('Result_Answer', related_name='results')
 
     def add_answer(self, question_id, comment):
         comments = json.loads(self.comment_list)
@@ -75,12 +74,13 @@ class Results(models.Model):
     def __str__(self):
         return ("Quiz %s" % (self.date))
 
-# want to see result answer inside result
+
 class Question_choice(models.Model):
     answer = models.ForeignKey(Answer, related_name='result_answers', on_delete=models.CASCADE)
     question = models.ForeignKey(Question, related_name='results_answers', on_delete=models.CASCADE)
     comment = models.TextField(default='')
     question_choice = models.ForeignKey(Results, related_name='results_answers', on_delete=models.CASCADE)
+
     class Meta:
         verbose_name_plural = "Result Answers"
 

@@ -58,19 +58,7 @@ label {
   font-size: 1rem;
 }
 
-
-#answer-choices :hover{
-  cursor: pointer;
-  opacity:0.5;
-}
-
-
 #answer-choices input[type="radio"]:checked{
-  margin-left: 25px !important;
-  border: 1px solid blue;
-}
-
-:checked {
   margin-left: 25px !important;
   border: 1px solid blue;
 }

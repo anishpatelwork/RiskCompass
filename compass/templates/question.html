@@ -29,7 +29,7 @@
             </div>
             {% endfor %}
 
-        <div class="col">
+        <div class="text-center" style="padding-top:20px;">
             <h3>Additional Comments</h3>
         </div>
         <div class="row">
@@ -47,7 +47,7 @@
 
             {% endif %}
 
-            {% if question.id < 10 %}
+            {% if question.id < CountQuestions %}
                 <button type="submit" class="btn btn-primary send-button tx-tfm" style="float:right;">Save</button>
             {% else %}
                 <button type="submit" class="btn btn-primary send-button tx-tfm" style="float:right;">Results</button>

@@ -21,8 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_page, name='home'),
     path('rmb/new', views.new_rmb, name='new_rmb'),
-    path('question/<question_id>', views.question, name='question'),
-    path('question/<question_id>/answer/<answer_id>', views.answer, name='answer'),
+    path('question/<question_id>', views.get_questions, name='question'),
     path('results', views.results, name='results'),
     path('userdetails', views.userdetails, name='userdetails')
 ]

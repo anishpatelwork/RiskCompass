@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from compass.models import Results, Answer, Question_choice, Question
-from compass.forms import UserDetailForm
+from compass.forms import UserDetailForm, AnswerChoiceForm
 
 
 def home_page(request):
@@ -18,58 +18,67 @@ def userdetails(request):
         form = UserDetailForm(request.POST)
         if form.is_valid():
             userdetails = form.save(commit=False)
-            # Getting the first name with the get... Saves it and then redirects
             userdetails.first_name = form.cleaned_data['first_name']
             userdetails.last_name = form.cleaned_data['last_name']
             userdetails.email = form.cleaned_data['email']
             userdetails.company = form.cleaned_data['company']
             userdetails.role = form.cleaned_data['role']
-            userdetails.sector = form.cleaned_data['sector']
             userdetails.save()
             new_rmb(request, userdetails)
             return redirect(f'/question/1')
+        else:
+            return render(request, 'userdetails.html', {'form': form, 'errors': form.errors})
 
     form = UserDetailForm()
     return render(request, 'userdetails.html', {'form': form})
 
-def question(request, question_id):
-    # Need to get the result answer and if null just return the question
+
+def get_questions(request, question_id):
+    print('This is the question ID')
+    print(question_id)
     rmb_id = request.session['rmb_id']
     rmb_ = Results.objects.get(id=rmb_id)
-    question = Question.objects.get(id=question_id)
-    question_ = rmb_.quiz.questions.get(id=question_id)
-    if Question_choice.objects.filter(question_choice=rmb_, question= question).exists():
-        # If the object exists and the user wants to modify
-        results_answers = Question_choice.objects.get(question=question_id)
-        return render(request, 'question.html', {'question': question_, 'rmb': rmb_, 'answer': results_answers})
-
-    return render(request, 'question.html', {'question': question_, 'rmb': rmb_})
-
-
-# Create a form for each of the questions. Validate here and add to results with comments
-def answer(request, question_id, answer_id):
-    # get the result_answer with the question id
-    # if empty return empty and new form
-    # else return all items with selected and comment
     next_question_id = int(question_id) + 1
-    rmb_id = request.session['rmb_id']
-    answer = Answer.objects.get(id=answer_id)
-    question = Question.objects.get(id=question_id)
-    rmb = Results.objects.get(id=rmb_id)
+    last_question_id = rmb_.quiz.questions.last().id
+    all_questions = Question.objects.all().count()
+    try:
+        question_ = Question.objects.get(id=question_id)
+    except Question.DoesNotExist:
+        return render(request, '404.html')
 
-    if Question_choice.objects.filter(question_choice=rmb, question= question).exists():
+    if request.method == "POST":
+        if Question_choice.objects.filter(question_choice=rmb_, question=question_).exists():
+            # If the results already exists, we need to update not create a new one
+            results_answers = Question_choice.objects.get(question=question_id, question_choice=rmb_)
+            form = AnswerChoiceForm(data=request.POST, question_id=question_id, instance=results_answers)
+        else:
+            form = AnswerChoiceForm(data=request.POST, question_id=question_id)
+        # How does form edit if there already exists
+        if form.is_valid():
+            answer_choice = form.save(commit=False)
+            answer_choice.comment = form.cleaned_data['comment']
+            answer_choice.answer = form.cleaned_data['answer']
+            answer_choice.question = question_
+            answer_choice.question_choice = rmb_
+            answer_choice.save()
+            if (next_question_id > last_question_id):
+                return redirect(f'/results')
+            else:
+                return redirect(f'/question/{next_question_id}')
+
+    # Setting the form
+    form = AnswerChoiceForm(question_id=question_id)
+
+    # If the question has already been answered
+    if Question_choice.objects.filter(question_choice=rmb_, question=question_).exists():
         # If the object exists and the user wants to modify
-        Question_choice.objects.filter(question=question).update(answer = answer)
-    else:
-        Question_choice.objects.create(question = question, answer = answer, question_choice = rmb)
+        print('This is the answer for the question')
+        print(Question_choice.objects.filter(question_choice=rmb_, question=question_))
+        results_answers = Question_choice.objects.get(question=question_id, question_choice=rmb_)
+        form.fields['answer'].initial = results_answers.answer
+        form.fields['comment'].initial = results_answers.comment
 
-    # Need the comment to add here as well
-    # rmb.add_answer(question_id, answer_id, 'Temp for now')
-    last_question_id = rmb.quiz.questions.last().id
-    if(next_question_id > last_question_id):
-        return redirect(f'/results')
-    else:
-        return redirect(f'/question/{next_question_id}')
+    return render(request, 'question.html', {'question': question_, 'rmb': rmb_, 'form': form, 'CountQuestions': all_questions})
 
 
 def results(request):
@@ -77,7 +86,6 @@ def results(request):
     rmb = Results.objects.get(id=rmb_id)
     choices = Question_choice.objects.filter(question_choice=rmb)
     answer_array = []
-    #data = rmb.get_answer_score_array()
     for c in choices:
         answer = Answer.objects.get(description = c.answer)
         answer_array.append(answer.score)

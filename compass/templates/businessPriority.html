@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load custom_filter %}
+{% block content %}
+<div class="row">
+        <div class="col-sm-8">
+
+            <div class="row">
+                <h1>Business Priority</h1>
+            </div>
+            <div class="row" style="height:10px;">
+            </div>
+            <div class="row">
+                <h2>How important are each of the RiskCompass categories to your business?</h2>
+            </div>
+        </div>
+</div>
+<div class="text-center ">
+    <form action="" method="post" name="rating">
+        {% csrf_token %}
+        <div class="range" id="Sliders">
+            <h2 class="headers-slider"><b>Data quality</b></h2>
+            {{ form.data_quality}}
+            <div class="sliderticks">
+                <p>Low</p>
+                <p>Medium</p>
+                <p>High</p>
+            </div>
+            <h2 class="headers-slider"><b>Cat Modeling</b></h2>
+            {{ form.cat_modeling}}
+            <div class="sliderticks">
+                <p>Low</p>
+                <p>Medium</p>
+                <p>High</p>
+            </div>
+            <h2 class="headers-slider"><b>Non Modelled</b></h2>
+            {{ form.non_modelled}}
+            <div class="sliderticks">
+                <p>Low</p>
+                <p>Medium</p>
+                <p>High</p>
+            </div>
+            <h2 class="headers-slider"><b>Profiling Submissions</b></h2>
+            {{ form.profiling_submissions}}
+            <div class="sliderticks">
+                <p>Low</p>
+                <p>Medium</p>
+                <p>High</p>
+            </div>
+        </div>
+
+        <div>
+            {% url 'question' last_question as question_back %}
+            <a href="{{question_back}}">
+                <input type="button" class="btn btn-primary send-button tx-tfm" id="backButton" style="float:left;" value="Previous" />
+            </a>
+
+            <button type="submit" class="btn btn-primary send-button tx-tfm" style="float:right;">Results</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

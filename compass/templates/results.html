@@ -7,32 +7,75 @@
 
 {% block content %}
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div id="wrapper" style="position: relative; height:50vh">
-                    <canvas id="myChart"></canvas>
+                    <canvas id="radar"></canvas>
                 </div>
             </div>
-            <div class="col-md-4 align-self-center">
-                <div id="accordion">
-                  {% for question, recommendation in recommendations.items %}
-                  <div class="card">
-                    <div class="card-header" id="{{question.id}}">
-                      <button class="btn btn-link" data-toggle="collapse" data-target="#{{question.category}}" aria-expanded="true" aria-controls={{question.category}}>
-                          {{question.category}}</button>
-                    </div>
-                    <div id="{{question.category}}" class="collapse" aria-labelledby={{question.id}} data-parent="#accordion">
-                        <div class="card-body">
-                          {{recommendation}}
-                        </div>
-                      </div>
-                  </div>
-                  {% endfor %}
+            <div class="col-md-6">
+                <div id="wrapper" style="position: relative; height:50vh">
+                    <canvas id="quadrant"></canvas>
                 </div>
             </div>
         </div>
 
         <script type="text/javascript">
-            var ctx = document.getElementById('myChart').getContext('2d');
+            var ctx = document.getElementById('quadrant').getContext('2d');
+            // Define the data 
+            var data = [{
+                            x: 5,
+                            y: 4
+                        }, {
+                            x: 2,
+                            y: 14
+                        },
+                        {
+                            x: 4,
+                            y: 12
+                        },
+                        {
+                            x: 2,
+                            y: 10
+                        },
+                        {
+                            x: 3,
+                            y: 4
+                        },
+                        {
+                            x: 3,
+                            y: 5
+                        },
+                        {
+                            x: 3,
+                            y: 8
+                        },
+                        {
+                            x: 6,
+                            y: 12
+                
+                                }]; // Add data values to array
+            // End Defining data
+            var options = {responsive: true, // Instruct chart js to respond nicely.
+                maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+            };
+
+            // End Defining data
+            var myChart = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                            label: 'Population', // Name the series
+                            data: data, // Specify the data values array
+                    borderColor: '#2196f3', // Add custom color border            
+                    backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+                        }]
+                },
+                options: options
+            });
+        </script>
+
+        <script type="text/javascript">
+            var ctx = document.getElementById('radar').getContext('2d');
             Chart.defaults.global.defaultFontColor = 'rgb(73, 73, 73)';
 
             var chart = new Chart(ctx, {

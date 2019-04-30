@@ -12,15 +12,20 @@ class Quiz(models.Model):
     class Meta:
         verbose_name_plural = "Quiz"
 
+class Category(models.Model):
+    categoryName = models.TextField(default='')
+
+    def __str__(self):
+        return self.categoryName
 
 class Question(models.Model):
-    category = models.TextField(default='')
+    category = models.ForeignKey(Category, related_name='category', on_delete=models.CASCADE)
     description = models.TextField(default='')
     quiz = models.ForeignKey(Quiz, related_name='questions', on_delete=models.CASCADE)
 
     # Set the name for the title of the questions
     def __str__(self):
-        return self.category
+        return self.description
 
 
 class Answer(models.Model):
@@ -48,7 +53,7 @@ class UserDetails(models.Model):
 
 
 class Results(models.Model):
-    userdetails = models.OneToOneField(UserDetails, related_name='results', on_delete=models.CASCADE, default=DEFAULT_QUIZ_ID)
+    userdetails = models.OneToOneField(UserDetails, related_name='results', on_delete=models.CASCADE)
     quiz = models.ForeignKey(Quiz, related_name='quizresults', on_delete=models.CASCADE, default = DEFAULT_QUIZ_ID)
     date = models.DateField(default=datetime.date.today)
 
@@ -101,4 +106,3 @@ class Business_Priority(models.Model):
     def __str__(self):
         return ("Data Quality: %s \n Cat Modeling: %s \n Non Modelled: %s \n Profile Submissions: %s" %
                 (self.data_quality, self.cat_modeling, self.non_modelled, self.profiling_submissions))
-

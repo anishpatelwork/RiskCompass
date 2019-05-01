@@ -23,23 +23,23 @@
             var ctx = document.getElementById('quadrant').getContext('2d');
             // Define the data 
             var data = [{
-                            x: 5,
+                            x: 0,
                             y: 4
                         }, {
-                            x: 2,
-                            y: 14
-                        },
-                        {
-                            x: 4,
-                            y: 12
+                            x: 1,
+                            y: 4
                         },
                         {
                             x: 2,
-                            y: 10
+                            y: 3
                         },
                         {
                             x: 3,
-                            y: 4
+                            y: 3
+                        },
+                        {
+                            x: 2,
+                            y: 5
                         },
                         {
                             x: 3,
@@ -47,16 +47,51 @@
                         },
                         {
                             x: 3,
-                            y: 8
+                            y: 2
                         },
                         {
-                            x: 6,
-                            y: 12
+                            x: 1,
+                            y: 1
                 
-                                }]; // Add data values to array
-            // End Defining data
-            var options = {responsive: true, // Instruct chart js to respond nicely.
-                maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+                            }]; // Add data values to array
+        // End Defining data
+            var options = {
+                title: {
+                    display: true,
+                    text: 'Maturity vs Materiality'
+                },
+                legend: {
+                    display: false
+                },
+                responsive: true,
+                maintainAspectRation: false,
+                scales:{
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: 5,
+                            precision: 0,
+                            stepSize: 1
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Maturity'
+                        }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            max: 3,
+                            precision: 0,
+                            stepSize: 1
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Materiality'
+                        }
+                    }],
+                    
+                }
             };
 
             // End Defining data
@@ -66,8 +101,13 @@
                     datasets: [{
                             label: 'Population', // Name the series
                             data: data, // Specify the data values array
-                    borderColor: '#2196f3', // Add custom color border            
-                    backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+                    // borderColor: '#2196f3', // Add custom color border            
+                    // backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+                    fill: false,
+                    showLine: false,
+                    pointStyle: 'circle',
+                    pointBorderColor: '#0066ff',
+                    pointBackgroundColor: '#80b3ff'
                         }]
                 },
                 options: options
@@ -95,17 +135,6 @@
                         pointBackgroundColor: 'rgb(196, 32, 50)',
                         pointBorderColor: 'rgb(196, 32, 50)',
                         data: {{data}},
-                    },
-                    {
-                        label: "Benchmark",
-                        fill: false,
-                        borderColor: 'rgb(112, 155, 154)',
-                        borderWidth: 2,
-                        pointRadius: 3,
-                        pointStyle: 'circle',
-                        pointBackgroundColor: 'rgb(112, 155, 154)',
-                        pointBorderColor: 'rgb(112, 155, 154)',
-                        data: [3,4,3,5,2,4,4,5,2,1],
                     }]
                 },
 

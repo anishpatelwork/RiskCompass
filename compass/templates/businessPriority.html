@@ -18,34 +18,16 @@
     <form action="" method="post" name="rating">
         {% csrf_token %}
         <div class="range" id="Sliders">
-            <h2 class="headers-slider"><b>Data quality</b></h2>
-            {{ form.data_quality}}
-            <div class="sliderticks">
-                <p>Low</p>
-                <p>Medium</p>
-                <p>High</p>
-            </div>
-            <h2 class="headers-slider"><b>Cat Modeling</b></h2>
-            {{ form.cat_modeling}}
-            <div class="sliderticks">
-                <p>Low</p>
-                <p>Medium</p>
-                <p>High</p>
-            </div>
-            <h2 class="headers-slider"><b>Non Modelled</b></h2>
-            {{ form.non_modelled}}
-            <div class="sliderticks">
-                <p>Low</p>
-                <p>Medium</p>
-                <p>High</p>
-            </div>
-            <h2 class="headers-slider"><b>Profiling Submissions</b></h2>
-            {{ form.profiling_submissions}}
-            <div class="sliderticks">
-                <p>Low</p>
-                <p>Medium</p>
-                <p>High</p>
-            </div>
+            {% for category in categories %}
+                
+                <h2 class="headers-slider"><b>{{category}}</b></h2>
+                <input type="range" class="slider" name="{{category}}" id="slider{{category}}" min=1.0 max=3.0 value=2.0 step=0.1>
+                <div class="sliderticks">
+                        <p>Low</p>
+                        <p>Medium</p>
+                        <p>High</p>
+                </div>    
+            {% endfor %}
         </div>
 
         <div>

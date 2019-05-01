@@ -47,36 +47,26 @@ class AnswerChoiceForm(forms.ModelForm):
         self.fields["answer"].queryset = answers
 
 
-class BusinessPriorityForm(forms.ModelForm):
-    data_quality = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'value': '1', 'min': '1', 'max': '3'}), required=True)
-    cat_modeling = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'value': '1', 'min': '1', 'max': '3'}), required=True)
-    non_modelled = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'value': '1', 'min': '1', 'max': '3'}), required=True)
-    profiling_submissions = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'value': '1', 'min': '1', 'max': '3'}), required=True)
+# class BusinessPriorityForm(forms.ModelForm):
 
-    class Meta:
-        model = Business_Priority
-        fields = ('data_quality', 'cat_modeling', 'non_modelled', 'profiling_submissions')
+#     class Meta:
+#         model = Business_Priority
+#         fields = '__all__'
 
-    def __init__(self, *args, **kwargs):
-        super(BusinessPriorityForm, self).__init__(*args, **kwargs)
-        self.fields['data_quality'].widget.attrs = {
-            'class': 'slider',
-            'min': 1,
-            'max': 3,
-            'value': 2}
-        self.fields['cat_modeling'].widget.attrs = {
-            'class': 'slider',
-            'min': 1,
-            'max': 3,
-            'value': 2}
-        self.fields['non_modelled'].widget.attrs = {
-            'class': 'slider',
-            'min': 1,
-            'max': 3,
-            'value': 2}
-        self.fields['profiling_submissions'].widget.attrs = {
-            'class': 'slider',
-            'min': 1,
-            'max': 3,
-            'value': 2}
-
+#     def __init__(self, categories, *args, **kwargs):
+#         super(BusinessPriorityForm, self).__init__(*args, **kwargs)
+#         for category in categories:
+#             field = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'value': '2', 'min': '1', 'max': '3'}), required=True)
+#             self.fields[' %s' % (category)] = field
+#             self.fields[' %s' % (category)].widget.attrs = {
+#                 'class': 'slider',
+#                 'min': 1.0,
+#                 'max':3.0,
+#                 'value': 2.0,
+#                 'step': 0.1
+#             }
+     
+#     def categories(self):
+#         for name in self.fields:
+#             if name.startswith(' '):
+#                 yield(self[name])

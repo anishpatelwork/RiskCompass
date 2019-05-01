@@ -94,15 +94,9 @@ class Question_choice(models.Model):
 
 
 class Business_Priority(models.Model):
-    data_quality = models.CharField(max_length=50)
-    cat_modeling = models.CharField(max_length=50)
-    non_modelled = models.CharField(max_length=50)
-    profiling_submissions = models.CharField(max_length=50)
+    category = models.ForeignKey(Category, related_name='business_priority', on_delete=models.CASCADE)
+    score = models.DecimalField(max_digits=2, decimal_places=1)
     results = models.OneToOneField(Results, related_name='business_priority', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Business Priorities"
-
-    def __str__(self):
-        return ("Data Quality: %s \n Cat Modeling: %s \n Non Modelled: %s \n Profile Submissions: %s" %
-                (self.data_quality, self.cat_modeling, self.non_modelled, self.profiling_submissions))

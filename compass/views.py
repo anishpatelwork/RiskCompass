@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from compass.models import Results, Answer, Question_choice, Question, Business_Priority
-from compass.forms import UserDetailForm, AnswerChoiceForm, BusinessPriorityForm
+from compass.models import Results, Answer, Question_choice, Question, Business_Priority, Category
+from compass.forms import UserDetailForm, AnswerChoiceForm
 import pandas as pd
 
 all_Questions = Question.objects.all()
@@ -102,31 +102,31 @@ def rating(request):
     last_question = request.session['last_question']
     rmb_id = request.session['rmb_id']
     rmb_ = Results.objects.get(id=rmb_id)
+    categories = list(Category.objects.values_list('categoryName', flat=True))
     if request.method == "POST":
-        # Check if editing or not
-        if Business_Priority.objects.filter(results=rmb_).exists():
-            priority = Business_Priority.objects.get(results=rmb_)
-            form = BusinessPriorityForm(data=request.POST, instance=priority)
-        else:
-            form = BusinessPriorityForm(request.POST)
-        if form.is_valid():
-            business_priority = form.save(commit=False)
-            business_priority.data_quality = rating_helpfunc(int(form.cleaned_data['data_quality']))
-            business_priority.cat_modeling = rating_helpfunc(int(form.cleaned_data['cat_modeling']))
-            business_priority.non_modelled = rating_helpfunc(int(form.cleaned_data['non_modelled']))
-            business_priority.profiling_submissions = rating_helpfunc(int(form.cleaned_data['profiling_submissions']))
-            business_priority.results = rmb_
-            business_priority.save()
-            return redirect(f'/results')
+        print("in post")
+        # loop over all the categories and pull out the results and create business prioirty objects
+        data = request.POST.get('G')
+        print(data)
+    # if request.method == "POST":
+    #     print("in post")
+    #     # Check if editing or not
+    #     if Business_Priority.objects.filter(results=rmb_).exists():
+    #         print("In block 1")
+    #         priority = Business_Priority.objects.get(results=rmb_)
+    #         form = BusinessPriorityForm(data=request.POST, instance=priority)
+    #     else:
+    #         print("in block 2")
+    #         form = BusinessPriorityForm(request.POST)
+    #         print(form)
+    #     if form.is_valid():
+    #         print(form)
+    #         business_priority = form.save(commit=False)
+    #         business_priority.results = rmb_
+    #         business_priority.save()
+    #         return redirect(f'/results')
+    #     print("oops")
+    #     print(form.errors)
 
-    form = BusinessPriorityForm()
-    return render(request, 'businessPriority.html', {'form': form, 'last_question': last_question})
-
-
-def rating_helpfunc(priority_number):
-    if priority_number == 1:
-        return 'Low'
-    elif priority_number ==2:
-        return 'Medium'
-    else:
-        return 'High'
+    
+    return render(request, 'businessPriority.html', {'categories': categories, 'last_question': last_question})

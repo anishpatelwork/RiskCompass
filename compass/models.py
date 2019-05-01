@@ -96,7 +96,7 @@ class Question_choice(models.Model):
 class Business_Priority(models.Model):
     category = models.ForeignKey(Category, related_name='business_priority', on_delete=models.CASCADE)
     score = models.DecimalField(max_digits=2, decimal_places=1)
-    results = models.OneToOneField(Results, related_name='business_priority', on_delete=models.CASCADE)
+    results = models.ForeignKey(Results, related_name='business_priority', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Business Priorities"

@@ -104,29 +104,15 @@ def rating(request):
     rmb_ = Results.objects.get(id=rmb_id)
     categories = list(Category.objects.values_list('categoryName', flat=True))
     if request.method == "POST":
-        print("in post")
         # loop over all the categories and pull out the results and create business prioirty objects
-        data = request.POST.get('G')
-        print(data)
-    # if request.method == "POST":
-    #     print("in post")
-    #     # Check if editing or not
-    #     if Business_Priority.objects.filter(results=rmb_).exists():
-    #         print("In block 1")
-    #         priority = Business_Priority.objects.get(results=rmb_)
-    #         form = BusinessPriorityForm(data=request.POST, instance=priority)
-    #     else:
-    #         print("in block 2")
-    #         form = BusinessPriorityForm(request.POST)
-    #         print(form)
-    #     if form.is_valid():
-    #         print(form)
-    #         business_priority = form.save(commit=False)
-    #         business_priority.results = rmb_
-    #         business_priority.save()
-    #         return redirect(f'/results')
-    #     print("oops")
-    #     print(form.errors)
+        if Business_Priority.objects.filter(results=rmb_).exists():
+            print("Priorities already exist")
 
+        for category in categories:
+            score = request.POST.get(category)
+            actualCategory = Category.objects.get(categoryName = category)
+            business_priority = Business_Priority(category = actualCategory, score = score, results = rmb_)
+            business_priority.save() 
+        return redirect(f'/results')
     
     return render(request, 'businessPriority.html', {'categories': categories, 'last_question': last_question})

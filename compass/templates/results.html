@@ -124,7 +124,8 @@
 
                 // The data for our dataset
                 data: {
-                    labels: ["Data Quality", "Cat Modeling", "Non Modeled", "Profiling Submissions", "Pricing", "Binding", "Capacity Management", "Risk Transfer", "Event Response", "Reporting"],
+                    // labels: ['Data Quality', "Cat Modeling", "Non Modeled", "Profiling Submissions", "Pricing", "Binding", "Capacity Management", "Risk Transfer", "Event Response", "Reporting"],
+                    labels: [{% for label in labels  %}"{{label}}",{% endfor %}],
                     datasets: [{
                         label: "Results",
                         fill: false,

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from compass.models import Results, Answer, Question_choice, Question, Business_Priority
 from compass.forms import UserDetailForm, AnswerChoiceForm, BusinessPriorityForm
+import pandas as pd
 
 all_Questions = Question.objects.all()
 
@@ -83,11 +84,18 @@ def results(request):
     rmb_id = request.session['rmb_id']
     rmb = Results.objects.get(id=rmb_id)
     choices = Question_choice.objects.filter(question_choice=rmb)
+    # scores = {}
     answer_array = []
     for c in choices:
+        question = Question.objects.get(id = c.question_id)
+        # print(question.category)
         answer = Answer.objects.get(description = c.answer)
-        answer_array.append(answer.score)
-    return render(request, 'results.html', {'data': answer_array})
+        answer_array.append({question.category.categoryName: answer.score})
+
+    df = pd.DataFrame(answer_array)
+    labels = list(df)
+    data = list(df.mean())
+    return render(request, 'results.html', {'data': data, 'labels': labels})
 
 
 def rating(request):

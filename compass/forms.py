@@ -45,28 +45,3 @@ class AnswerChoiceForm(forms.ModelForm):
         super(AnswerChoiceForm, self).__init__(*args, **kwargs)
         answers = Answer.objects.filter(question = question_id).order_by('score')
         self.fields["answer"].queryset = answers
-
-
-# class BusinessPriorityForm(forms.ModelForm):
-
-#     class Meta:
-#         model = Business_Priority
-#         fields = '__all__'
-
-#     def __init__(self, categories, *args, **kwargs):
-#         super(BusinessPriorityForm, self).__init__(*args, **kwargs)
-#         for category in categories:
-#             field = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'value': '2', 'min': '1', 'max': '3'}), required=True)
-#             self.fields[' %s' % (category)] = field
-#             self.fields[' %s' % (category)].widget.attrs = {
-#                 'class': 'slider',
-#                 'min': 1.0,
-#                 'max':3.0,
-#                 'value': 2.0,
-#                 'step': 0.1
-#             }
-     
-#     def categories(self):
-#         for name in self.fields:
-#             if name.startswith(' '):
-#                 yield(self[name])

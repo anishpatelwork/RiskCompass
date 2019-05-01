@@ -91,11 +91,17 @@ def results(request):
         # print(question.category)
         answer = Answer.objects.get(description = c.answer)
         answer_array.append({question.category.categoryName: answer.score})
-
     df = pd.DataFrame(answer_array)
     labels = list(df)
     data = list(df.mean())
-    return render(request, 'results.html', {'data': data, 'labels': labels})
+
+    priorities = Business_Priority.objects.filter(results = rmb)
+    materialityData = []
+    for priority in priorities:        
+        materiality = float(priority.score)
+        materialityData.append(materiality)
+    print(materialityData)
+    return render(request, 'results.html', {'maturity': data, 'materiality':materialityData, 'labels': labels})
 
 
 def rating(request):

@@ -20,40 +20,21 @@
         </div>
 
         <script type="text/javascript">
+            function format_data(maturity, materiality){
+                
+                var data = [];
+                i = 0;
+                maturity.forEach(function(entry) {
+                    data.push({y:entry, x:materiality[i]});
+                    i++;
+                });
+                console.debug(data);
+                return data;
+            };
             var ctx = document.getElementById('quadrant').getContext('2d');
             // Define the data 
-            var data = [{
-                            x: 0,
-                            y: 4
-                        }, {
-                            x: 1,
-                            y: 4
-                        },
-                        {
-                            x: 2,
-                            y: 3
-                        },
-                        {
-                            x: 3,
-                            y: 3
-                        },
-                        {
-                            x: 2,
-                            y: 5
-                        },
-                        {
-                            x: 3,
-                            y: 5
-                        },
-                        {
-                            x: 3,
-                            y: 2
-                        },
-                        {
-                            x: 1,
-                            y: 1
-                
-                            }]; // Add data values to array
+            var data = format_data({{maturity }},{{ materiality }});
+
         // End Defining data
             var options = {
                 title: {
@@ -80,10 +61,11 @@
                     }],
                     xAxes: [{
                         ticks: {
-                            beginAtZero: true,
+                            beginAtZero: false,
+                            min: 1,
                             max: 3,
                             precision: 0,
-                            stepSize: 1
+                            stepSize: 1,
                         },
                         scaleLabel: {
                             display: true,
@@ -135,7 +117,7 @@
                         pointStyle: 'circle',
                         pointBackgroundColor: 'rgb(196, 32, 50)',
                         pointBorderColor: 'rgb(196, 32, 50)',
-                        data: {{data}},
+                        data: {{maturity}},
                     }]
                 },
 

@@ -33,7 +33,7 @@ class UserDetailForm(forms.ModelForm):
 
 
 class AnswerChoiceForm(forms.ModelForm):
-    answer = forms.ModelChoiceField(queryset=None, empty_label=None, widget=forms.RadioSelect())
+    answer = forms.ModelChoiceField(queryset=None, empty_label=None, widget=forms.RadioSelect(attrs={'class':'form-radio'}))
     comment = forms.CharField(required=False, widget=forms.Textarea())
 
     class Meta:

@@ -100,7 +100,6 @@ def results(request):
     for priority in priorities:        
         materiality = float(priority.score)
         materialityData.append(materiality)
-    print(materialityData)
     return render(request, 'results.html', {'maturity': data, 'materiality':materialityData, 'labels': labels})
 
 

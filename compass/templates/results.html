@@ -7,17 +7,20 @@
 
 {% block content %}
         <div class="row">
-            <div class="col-md-6">
-                <div id="wrapper" style="position: relative; height:50vh">
+            <div class="col align-self-center">
+                <div id="wrapper">
                     <canvas id="radar"></canvas>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div id="wrapper" style="position: relative; height:50vh">
+            <div class="col align-self-center">
+                <div id="wrapper">
                     <canvas id="quadrant"></canvas>
                 </div>
             </div>
         </div>
+        <!-- <div class="row">
+            
+        </div> -->
 
         <script type="text/javascript">
             function format_data(maturity, materiality){
@@ -25,7 +28,7 @@
                 var data = [];
                 i = 0;
                 maturity.forEach(function(entry) {
-                    data.push({y:entry, x:materiality[i]});
+                    data.push({x:entry, y:materiality[i]});
                     i++;
                 });
                 console.debug(data);
@@ -50,26 +53,27 @@
                     yAxes: [{
                         ticks: {
                             beginAtZero: true,
-                            max: 5,
+                            min: 1,
+                            max: 3,
                             precision: 0,
                             stepSize: 1
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Maturity'
+                            labelString: 'Materiality'
                         }
                     }],
                     xAxes: [{
                         ticks: {
                             beginAtZero: false,
                             min: 1,
-                            max: 3,
+                            max: 5,
                             precision: 0,
                             stepSize: 1,
                         },
                         scaleLabel: {
                             display: true,
-                            labelString: 'Materiality'
+                            labelString: 'Maturity'
                         }
                     }],
                     
@@ -134,7 +138,7 @@
                     scale: {
                         pointLabels: {
                             fontSize: 14,
-                            fontFamily: 'Roboto',
+                            fontFamily: 'Gotham Book',
                         },
                         ticks: {
                             display: false,
@@ -142,6 +146,10 @@
                             max: 5,
                             stepSize: 1
                         }
+                    },
+                    title: {
+                    display: true,
+                    text: 'Results across dimensions'
                     }
                 }
             });

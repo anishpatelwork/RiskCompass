@@ -1,100 +1,100 @@
-1,A1,1,Blah,1
-2,A2,2,Blah,1
-3,A3,3,Blah,1
-4,A4,4,Blah,1
-5,A5,5,Blah,1
-6,A6,1,Blah,2
-7,A7,2,Blah,2
-8,A8,3,Blah,2
-9,A9,4,Blah,2
-10,A10,5,Blah,2
-11,A11,1,Blah,3
-12,A12,2,Blah,3
-13,A13,3,Blah,3
-14,A14,4,Blah,3
-15,A15,5,Blah,3
-16,A16,1,Blah,4
-17,A17,2,Blah,4
-18,A18,3,Blah,4
-19,A19,4,Blah,4
-20,A20,5,Blah,4
-21,A21,1,Blah,5
-22,A22,2,Blah,5
-23,A23,3,Blah,5
-24,A24,4,Blah,5
-25,A25,5,Blah,5
-26,A26,1,Blah,6
-27,A27,2,Blah,6
-28,A28,3,Blah,6
-29,A29,4,Blah,6
-30,A30,5,Blah,6
-31,A31,1,Blah,7
-32,A32,2,Blah,7
-33,A33,3,Blah,7
-34,A34,4,Blah,7
-35,A35,5,Blah,7
-36,A36,1,Blah,8
-37,A37,2,Blah,8
-38,A38,3,Blah,8
-39,A39,4,Blah,8
-40,A40,5,Blah,8
-41,A41,1,Blah,9
-42,A42,2,Blah,9
-43,A43,3,Blah,9
-44,A44,4,Blah,9
-45,A45,5,Blah,9
-46,A46,1,Blah,10
-47,A47,2,Blah,10
-48,A48,3,Blah,10
-49,A49,4,Blah,10
-50,A50,5,Blah,10
-51,A51,1,Blah,11
-52,A52,2,Blah,11
-53,A53,3,Blah,11
-54,A54,4,Blah,11
-55,A55,5,Blah,11
-56,A56,1,Blah,12
-57,A57,2,Blah,12
-58,A58,3,Blah,12
-59,A59,4,Blah,12
-60,A60,5,Blah,12
-61,A61,1,Blah,13
-62,A62,2,Blah,13
-63,A63,3,Blah,13
-64,A64,4,Blah,13
-65,A65,5,Blah,13
-66,A66,1,Blah,14
-67,A67,2,Blah,14
-68,A68,3,Blah,14
-69,A69,4,Blah,14
-70,A70,5,Blah,14
-71,A71,1,Blah,15
-72,A72,2,Blah,15
-73,A73,3,Blah,15
-74,A74,4,Blah,15
-75,A75,5,Blah,15
-76,A76,1,Blah,16
-77,A77,2,Blah,16
-78,A78,3,Blah,16
-79,A79,4,Blah,16
-80,A80,5,Blah,16
-81,A81,1,Blah,17
-82,A82,2,Blah,17
-83,A83,3,Blah,17
-84,A84,4,Blah,17
-85,A85,5,Blah,17
-86,A86,1,Blah,18
-87,A87,2,Blah,18
-88,A88,3,Blah,18
-89,A89,4,Blah,18
-90,A90,5,Blah,18
-91,A91,1,Blah,19
-92,A92,2,Blah,19
-93,A93,3,Blah,19
-94,A94,4,Blah,19
-95,A95,5,Blah,19
-96,A96,1,Blah,20
-97,A97,2,Blah,20
-98,A98,3,Blah,20
-99,A99,4,Blah,20
-100,A100,5,Blah,20
+﻿1,Are absent or rarely incorporated,1,Rec,2
+2,Cover peak regions and are used qualitatively,2,Rec,2
+3,"Are documented, assess both completeness and accuracy and used quantitatively",3,Rec,2
+4,All of the above and governed by a change control process,4,Rec,2
+5,Constantly monitored and updated based on availability of new solutions and internal learning,5,Rec,2
+6,Make little or no enhancement to exposure data,1,Rec,8
+7,"Enhance data ad-hoc, on a case-by-case basis",2,Rec,8
+8,Enhance data using a consistent and documented methodology,3,Rec,8
+9,Validate and enhance using third party data sets and/or engineering reports (where available),4,Rec,8
+10,"Validate and enhance using our best in class approach, we continually innovate and partner to find ways to improve our data ",5,Rec,8
+11,Little or no catastrophe modeling (either in-house or outsourced),1,Rec,16
+12,Most of our modeling done by brokers but have the expertise to validate models and results in-house,2,Rec,16
+13,A dedicated cat modeling team (in-house or outsourced). Carry out research and validation projects during periods of the year when less busy,3,Rec,16
+14,"Dedicated model researcher(s) with relevant qualifications, and use additional research and scientific sources to validate, and where appropriate develop our own view of risk",4,Rec,16
+15,Multiple perspectives on risk that are fully integrated in our underwriting and portfolio management processes. Constantly seek to innovate and partner. Strategy of differentiating based on our deep understanding of cat risk,5,Rec,16
+16,Not automated or highly manual,1,Rec,10
+17,Partially automated but still require manual intervention,2,Rec,10
+18,"Mostly automated, consistently incorporated and workflows documented across the organization",3,Rec,10
+19,"Fully-automated (where possible), auditable, and highly integrated in our underwriting and portfolio management systems. Governed by a change control process",4,Rec,10
+20,"Best in class, fully-automated and consistently looking at ways to improve workflow efficiency and take advantage of latest technologies",5,Rec,10
+21,Do not require or utilize any data in non-modeled regions.,1,Rec,4
+22,Collect and utilize data on an ad-hoc basis for pricing but do not utilize or store this information for any portfolio management activities.,2,Rec,4
+23,Collect and utilize data based on a set of perils and regions defined at a corporate level. Have defined data structes to capture all relevant information.,3,Rec,4
+24,"Collect, store, and utilize all data for defined perils and regions for both pricing and portfolio management activities.",4,Rec,4
+25,"Have created and continually improve on an extensible data warehouse which can capture data for any coverage, risk, or peril.",5,Rec,4
+26,No resource available to consider non-modeled risk.,1,Rec,9
+27,Underwriters who will work with the actuarial team and/or produce ad-hoc exposure management results.,2,Rec,9
+28,Tools to monitor accumulations of risk for defined regions based on exposure and/or scenario analysis.,3,Rec,9
+29,A variety of probabilistic models from multiple vendors that are used in a production underwriting platform.,4,Rec,9
+30,In-house developed probabilstic models used at point of underwriting for models we cannot license or properly validate.,5,Rec,9
+31,"Basic exposure summary, modeled loss metrics, and claims information for the current year’s submission",1,Rec,3
+32,As above but includes data from previous year,2,Rec,3
+33,As above but includes automated comparative analytics to quickly assess year on year changes in exposure information and flag suspicious data,3,Rec,3
+34,"As above and also incorporate exposure data quality metrics (accuracy & completeness), business quality metrics, risk appetite, and may include risk engineering where relevant. ",4,Rec,3
+35,Continually improve the process. Innovate and work with partners on new ways to profile and understand the risk,5,Rec,3
+36,Ad-hoc and inconsistent,1,Rec,13
+37,"Repeatable, but inconsistent between lines of business",2,Rec,13
+38,Consistent across all lines and provide basic capabilities to drill down into the data,3,Rec,13
+39,"Repeatable, auditable, and able to quickly drill into the data to understand what is driving the headline metrics, without moving between different systems",4,Rec,13
+40,"Best in class, information presented on-demand and dynamically, and consistently improved upon",5,Rec,13
+41,Model mean and standard deviation are used with no adjustment,1,Rec,19
+42,Some loadings are applied to model output on an adhoc basis,2,Rec,19
+43,"A consistent framework is used for adjusting modeled output using loading factors. Includes loading for value increases, data quality, non-modeled, and suitability of model",3,Rec,19
+44,"As above but we also use advanced modeled metrics (e.g. contributory/marginal impact to the portfolio, concentration index value, capital consumption)",4,Rec,19
+45,We use an enterprise-wide technical pricing system that is continuously invested in and improved as necessary.,5,Rec,19
+46,Undocumented and inconsistent,1,Rec,12
+47,Documented and repeatable,2,Rec,12
+48,Semi-automated and consistent across some products,3,Rec,12
+49,Automated and consistent across relevant lines,4,Rec,12
+50,Fully automated and dynamic across the entire organization,5,Rec,12
+51,Are not tracked or auditable,1,Rec,1
+52,Are tracked but can differ across business units,2,Rec,1
+53,Tracked consistently across some business units,3,Rec,1
+54,Formally tracked according to an enterprise-level process,4,Rec,1
+55,Are captured in a consistent database which is analysed to understand patterns in underwriting decisions that can then feed back into underwriting strategy,5,Rec,1
+56,Not integrated or reconciled with data in risk systems,1,Rec,15
+57,Manually reconciled with risk systems,2,Rec,15
+58,Somewhat integrated and semi-automatically reconciled with risk systems,3,Rec,15
+59,Fully integrated and automatically reconciled with risk systems,4,Rec,15
+60,"Best in class, continuous improvement of the global contract management system",5,Rec,15
+61,Rely on our broker to provide portfolio-level metrics for segments and peak regions,1,Rec,17
+62,"Generate basic results in-house or using an outsourced team, based on total insured value (TIV) and exposed limt (EL)",2,Rec,17
+63,Monitor TIV and exposed limits (EL) across all major LOBs. Also carry out market share analysis to reduce risk of private catastrophe,3,Rec,17
+64,Have automation to flag breaches of limits and emerging risk clusters,4,Rec,17
+65,Continually invest in our exposure management practices to innovate and be “best in class”,5,Rec,17
+66,Never or rarely,1,Rec,7
+67,Semi-annually,2,Rec,7
+68,Quarterly,3,Rec,7
+69,Monthly or weekly,4,Rec,7
+70,Daily or available on-demand,5,Rec,7
+71,Full reliance on broker to suggest and model R/I structures,1,Rec,18
+72,Traditional structures are easily modeled in-house,2,Rec,18
+73,Rely on broker to suggest and/or model complex alternative structures,3,Rec,18
+74,"There is collaboration with broker, though we model all structures and different alternatives in-house, to decide on best approach",4,Rec,18
+75,Lead discussions with brokers to structure innovative risk transfer products,5,Rec,18
+76,Only satisfies the minimum rating/regulatory requirements,1,Rec,20
+77,"Meets basic risk tolerance and appetite targets, varies by LOB with little or no input from ERM",2,Rec,20
+78,"Strategy is multi-dimensional, though may not be integrated across all business units/LOBs and involvement with ERM",3,Rec,20
+79,Strategy is integrated across all business units/LOBs and ERM,4,Rec,20
+80,"Strategy is considered “best in class”, well-defined and fully-integrated across all business units/LOBs and ERM",5,Rec,20
+81,"Carried out ad-hoc, incomplete documentation, processes are not auditable",1,Rec,11
+82,"Somewhat documented and repeatable, Limited audit capabilities, mostly capturing metadata (e.g. what contracts were analyzed, who analyzed them). Assumptions and adjustments applied are not consistently tracked",2,Rec,11
+83,"Fully documented and consistent, some auditability at a coarse level (e.g. who ran what analysis, vintage of data, model/accumulation/PML settings). Consistent tracking of key assumptions and adjustments applied",3,Rec,11
+84,"All of the above + governed by a change management framework, consistent track of all assumptions and adjustments applied",4,Rec,11
+85,Considered “best in class”. Process is continually improved to provide market differentiating solutions (e.g. On-the-ground surveys and hazard assessments with defined process and governance for feedback into model R&D),5,Rec,11
+86,There are no predefined roles and responsibilities during event response,score,Rec,5
+87,"Roles and responsibilities are defined within business units, but limited oversight across the organization",2,Rec,5
+88,"Roles and responsibilities are defined within business units and there is a catastrophe event committeeto bring organization, coordination and oversight to post­event activities",3,Rec,5
+89,"All of the above + use of specialized teams or third parties to conduct surveys and hazard assessment, validate or enhance the loss estimates and manage loss adjustors",4,Rec,5
+90,All of the above + insights are fed back into internal model R&D activities. There is continued investment and innovation in this area.,5,Rec,5
+91,"Entirely manual (e.g. compilation, extraction, cutting and pasting, and formatting of data)",1,Rec,14
+92,"Manual, somewhat documented and repeatable (e.g. Many tasks are scripted and streamlined, others require manual intervention)",2,Rec,14
+93,"Semi­automated (e.g. formatting), with some manual intervention (e.g. when initiating data consolidation, quality assurance, error handling and reconciliation)",3,Rec,14
+94,"Fully-automated, manual intervention only required occasionally. Formal framework in place for error identification and handling which may involve manual intervention",4,Rec,14
+95,All of the above + the process is continually invested in to develop market differentiating solutions,5,Rec,14
+96,"Ad-hoc queries require cause significant disruption, investment of time and resources",1,Rec,6
+97,"Questions can be answered, but takes time",2,Rec,6
+98,Queries are answered quickly with some drill­down capabilities,3,Rec,6
+99,Addressed quickly and ad-hoc questions answered on short notice by drilling into underlying reports,4,Rec,6
+100,"There are enterprise BI systems in place that easily allows testing of alternative assumptions and drill-down into data across multiple functions (e.g. modeling, underweriting, finance) to answer ad-hoc questions on demand",5,Rec,6

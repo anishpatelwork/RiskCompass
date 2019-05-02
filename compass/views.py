@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-from compass.models import Results, Answer, Question_choice, Question, Business_Priority
-from compass.forms import UserDetailForm, AnswerChoiceForm, BusinessPriorityForm
+from compass.models import Results, Answer, Question_choice, Question, Business_Priority, Category
+from compass.forms import UserDetailForm, AnswerChoiceForm
+import pandas as pd
 
 all_Questions = Question.objects.all()
 
@@ -83,42 +84,40 @@ def results(request):
     rmb_id = request.session['rmb_id']
     rmb = Results.objects.get(id=rmb_id)
     choices = Question_choice.objects.filter(question_choice=rmb)
+    # scores = {}
     answer_array = []
     for c in choices:
+        question = Question.objects.get(id = c.question_id)
+        # print(question.category)
         answer = Answer.objects.get(description = c.answer)
-        answer_array.append(answer.score)
-    return render(request, 'results.html', {'data': answer_array})
+        answer_array.append({question.category.categoryName: answer.score})
+    df = pd.DataFrame(answer_array)
+    labels = list(df)
+    data = list(df.mean())
+
+    priorities = Business_Priority.objects.filter(results = rmb)
+    materialityData = []
+    for priority in priorities:        
+        materiality = float(priority.score)
+        materialityData.append(materiality)
+    return render(request, 'results.html', {'maturity': data, 'materiality':materialityData, 'labels': labels})
 
 
 def rating(request):
     last_question = request.session['last_question']
     rmb_id = request.session['rmb_id']
     rmb_ = Results.objects.get(id=rmb_id)
+    categories = list(Category.objects.values_list('categoryName', flat=True))
     if request.method == "POST":
-        # Check if editing or not
+        # loop over all the categories and pull out the results and create business prioirty objects
         if Business_Priority.objects.filter(results=rmb_).exists():
-            priority = Business_Priority.objects.get(results=rmb_)
-            form = BusinessPriorityForm(data=request.POST, instance=priority)
-        else:
-            form = BusinessPriorityForm(request.POST)
-        if form.is_valid():
-            business_priority = form.save(commit=False)
-            business_priority.data_quality = rating_helpfunc(int(form.cleaned_data['data_quality']))
-            business_priority.cat_modeling = rating_helpfunc(int(form.cleaned_data['cat_modeling']))
-            business_priority.non_modelled = rating_helpfunc(int(form.cleaned_data['non_modelled']))
-            business_priority.profiling_submissions = rating_helpfunc(int(form.cleaned_data['profiling_submissions']))
-            business_priority.results = rmb_
-            business_priority.save()
-            return redirect(f'/results')
+            print("Priorities already exist")
 
-    form = BusinessPriorityForm()
-    return render(request, 'businessPriority.html', {'form': form, 'last_question': last_question})
-
-
-def rating_helpfunc(priority_number):
-    if priority_number == 1:
-        return 'Low'
-    elif priority_number ==2:
-        return 'Medium'
-    else:
-        return 'High'
+        for category in categories:
+            score = request.POST.get(category)
+            actualCategory = Category.objects.get(categoryName = category)
+            business_priority = Business_Priority(category = actualCategory, score = score, results = rmb_)
+            business_priority.save() 
+        return redirect(f'/results')
+    
+    return render(request, 'businessPriority.html', {'categories': categories, 'last_question': last_question})

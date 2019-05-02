@@ -12,15 +12,20 @@ class Quiz(models.Model):
     class Meta:
         verbose_name_plural = "Quiz"
 
+class Category(models.Model):
+    categoryName = models.TextField(default='')
+
+    def __str__(self):
+        return self.categoryName
 
 class Question(models.Model):
-    category = models.TextField(default='')
+    category = models.ForeignKey(Category, related_name='category', on_delete=models.CASCADE)
     description = models.TextField(default='')
     quiz = models.ForeignKey(Quiz, related_name='questions', on_delete=models.CASCADE)
 
     # Set the name for the title of the questions
     def __str__(self):
-        return self.category
+        return self.description
 
 
 class Answer(models.Model):
@@ -48,7 +53,7 @@ class UserDetails(models.Model):
 
 
 class Results(models.Model):
-    userdetails = models.OneToOneField(UserDetails, related_name='results', on_delete=models.CASCADE, default=DEFAULT_QUIZ_ID)
+    userdetails = models.OneToOneField(UserDetails, related_name='results', on_delete=models.CASCADE)
     quiz = models.ForeignKey(Quiz, related_name='quizresults', on_delete=models.CASCADE, default = DEFAULT_QUIZ_ID)
     date = models.DateField(default=datetime.date.today)
 
@@ -89,16 +94,9 @@ class Question_choice(models.Model):
 
 
 class Business_Priority(models.Model):
-    data_quality = models.CharField(max_length=50)
-    cat_modeling = models.CharField(max_length=50)
-    non_modelled = models.CharField(max_length=50)
-    profiling_submissions = models.CharField(max_length=50)
-    results = models.OneToOneField(Results, related_name='business_priority', on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, related_name='business_priority', on_delete=models.CASCADE)
+    score = models.DecimalField(max_digits=2, decimal_places=1)
+    results = models.ForeignKey(Results, related_name='business_priority', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Business Priorities"
-
-    def __str__(self):
-        return ("Data Quality: %s \n Cat Modeling: %s \n Non Modelled: %s \n Profile Submissions: %s" %
-                (self.data_quality, self.cat_modeling, self.non_modelled, self.profiling_submissions))
-

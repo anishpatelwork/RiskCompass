@@ -1,0 +1,8 @@
+DROP DATABASE riskcompass;
+CREATE DATABASE riskcompass;
+\c riskcompass;
+SET ROLE risk;
+INSERT INTO compass_quiz("id", "name") VALUES (1, 'Exceedance');
+COPY compass_category("id", "categoryName") FROM '/Users/aspatel/code/RiskCompass/test_data/compass_category.csv' DELIMITER ',';
+COPY compass_question("id", "description", "category_id", "quiz_id") FROM '/Users/aspatel/code/RiskCompass/test_data/compass_question.csv' DELIMITER ','; 
+COPY compass_answer("id", "description", "score", "recommendation", "question_id") FROM '/Users/aspatel/code/RiskCompass/test_data/compass_answer.csv' DELIMITER ',';

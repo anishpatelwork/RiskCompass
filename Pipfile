@@ -9,6 +9,7 @@ gunicorn = "*"
 django-heroku = "*"
 "psycopg2" = "*"
 whitenoise = "*"
+pandas = "*"
 
 [dev-packages]
 pylint = "*"

@@ -45,38 +45,3 @@ class AnswerChoiceForm(forms.ModelForm):
         super(AnswerChoiceForm, self).__init__(*args, **kwargs)
         answers = Answer.objects.filter(question = question_id).order_by('score')
         self.fields["answer"].queryset = answers
-
-
-class BusinessPriorityForm(forms.ModelForm):
-    data_quality = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'value': '1', 'min': '1', 'max': '3'}), required=True)
-    cat_modeling = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'value': '1', 'min': '1', 'max': '3'}), required=True)
-    non_modelled = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'value': '1', 'min': '1', 'max': '3'}), required=True)
-    profiling_submissions = forms.IntegerField(widget=forms.NumberInput(attrs={'type':'range', 'value': '1', 'min': '1', 'max': '3'}), required=True)
-
-    class Meta:
-        model = Business_Priority
-        fields = ('data_quality', 'cat_modeling', 'non_modelled', 'profiling_submissions')
-
-    def __init__(self, *args, **kwargs):
-        super(BusinessPriorityForm, self).__init__(*args, **kwargs)
-        self.fields['data_quality'].widget.attrs = {
-            'class': 'slider',
-            'min': 1,
-            'max': 3,
-            'value': 2}
-        self.fields['cat_modeling'].widget.attrs = {
-            'class': 'slider',
-            'min': 1,
-            'max': 3,
-            'value': 2}
-        self.fields['non_modelled'].widget.attrs = {
-            'class': 'slider',
-            'min': 1,
-            'max': 3,
-            'value': 2}
-        self.fields['profiling_submissions'].widget.attrs = {
-            'class': 'slider',
-            'min': 1,
-            'max': 3,
-            'value': 2}
-

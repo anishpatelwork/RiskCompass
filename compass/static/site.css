@@ -74,10 +74,11 @@ label {
     width:50% !important;
     display:inline-block;
 }
+
 .slider {
   -webkit-appearance: none;
   appearance: none;
-  width: 100%;
+  width: 60%;
   height: 25px;
   background: #D3D3D3;
   outline: none;
@@ -124,11 +125,6 @@ label {
   margin: 0 0 20px 0;
 }
 
-.headers-slider {
-    padding-top:30px;
-    padding-bottom: 10px;
-}
-
 
 textarea{
   border-color: #cfcfcf;
@@ -166,6 +162,7 @@ textarea{
      margin-right: 7px;
      outline: none;
 }
+
 .form-radio:checked::before
 {
      position: absolute;
@@ -175,14 +172,17 @@ textarea{
      content: '\02143';
      transform: rotate(40deg);
 }
+
 .form-radio:hover
 {
      background-color: #f7f7f7;
 }
+
 .form-radio:checked
 {
      background-color: #f1f1f1;
 }
+
 label
 {
      font: 15px/1.7 'Open Sans', sans-serif;
@@ -190,8 +190,26 @@ label
      -webkit-font-smoothing: antialiased;
      -moz-osx-font-smoothing: grayscale;
      cursor: pointer;
-} 
+}
 
+@media (max-width: 800px) {
+    .row {
+        display: block;
+    }
+    p {
+        margin-bottom: 2px;
+    }
+    section {
+        width:100%;
+    }
+}
+
+@media (max-width: 1024px) {
+
+    section {
+        width:83%;
+    }
+}
 
 .material-icons.md-18 { font-size: 18px; }
 .material-icons.md-24 { font-size: 24px; }

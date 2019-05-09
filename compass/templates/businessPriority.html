@@ -11,33 +11,28 @@
             </div>
             <div class="row">
                 <h2>How important are each of the RiskCompass categories to your business?</h2>
+                 <h2> The score goes from Low to High.</h2>
             </div>
         </div>
 </div>
-<div class="text-center ">
-    <form action="" method="post" name="rating">
-        {% csrf_token %}
-        <div class="range" id="Sliders">
-            {% for category in categories %}
-                
-                <h2 class="headers-slider"><b>{{category}}</b></h2>
-                <input type="range" class="slider" name="{{category}}" id="slider{{category}}" min=1.0 max=3.0 value=2.0 step=0.1>
-                <div class="sliderticks">
-                        <p>Low</p>
-                        <p>Medium</p>
-                        <p>High</p>
-                </div>    
-            {% endfor %}
-        </div>
 
-        <div>
-            {% url 'question' last_question as question_back %}
-            <a href="{{question_back}}">
-                <input type="button" class="btn btn-primary send-button tx-tfm" id="backButton" style="float:left;" value="Previous" />
-            </a>
-
-            <button type="submit" class="btn btn-primary send-button tx-tfm" style="float:right;">Results</button>
-        </div>
-    </form>
-</div>
+<form action="" method="post" name="rating">
+    {% csrf_token %}
+     <div class="container">
+      <div class="row">
+        {% for category in categories %}
+          {% if forloop.counter0|divisibleby:2 %}
+          <div class="w-100"></div>
+          {% endif %}
+            <div class="col">
+                <p><b>{{category}}</b></p>
+                    <input type="range" class="slider" name="{{category}}" id="slider{{category}}" min=1.0 max=3.0 value=2.0 step=0.1>
+            </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div>
+        <button type="submit" class="btn btn-primary send-button tx-tfm" style="float:right;">Questions</button>
+    </div>
+</form>
 {% endblock %}

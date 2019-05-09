@@ -4,7 +4,7 @@ from .models import UserDetails, Question_choice, Answer, Business_Priority
 class UserDetailForm(forms.ModelForm):
     class Meta:
         model = UserDetails
-        fields = ('first_name', 'last_name', 'email', 'company', 'role')
+        fields = ('first_name', 'last_name', 'email', 'company', 'role','employee')
 
     def __init__(self, *args, **kwargs):
         super(UserDetailForm, self).__init__(*args, **kwargs)
@@ -30,6 +30,10 @@ class UserDetailForm(forms.ModelForm):
             'class': 'form-control my-input',
             'name': 'Role',
             'placeholder': 'Role'}
+        self.fields['employee'].widget.attrs = {
+            'class': 'form-control my-input',
+            'name': 'Employee',
+            'placeholder': 'Employee'}
 
 
 class AnswerChoiceForm(forms.ModelForm):

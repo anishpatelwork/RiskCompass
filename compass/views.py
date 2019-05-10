@@ -105,7 +105,7 @@ def results(request):
 
 
 def rating(request):
-    last_question = request.session['last_question']
+    # last_question = request.session['last_question']
     rmb_id = request.session['rmb_id']
     rmb_ = Results.objects.get(id=rmb_id)
     categories = list(Category.objects.values_list('categoryName', flat=True))
@@ -123,4 +123,4 @@ def rating(request):
                 business_priority.save()
         return redirect(f'/question/1')
     
-    return render(request, 'businessPriority.html', {'categories': categories, 'last_question': last_question})
+    return render(request, 'businessPriority.html', {'categories': categories})

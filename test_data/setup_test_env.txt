@@ -3,9 +3,9 @@ CREATE DATABASE riskcompass;
 \c riskcompass;
 SET ROLE risk;
 INSERT INTO compass_quiz("id", "name") VALUES (1, 'Exceedance');
-COPY compass_category("id", "categoryName") FROM '/app/test_data/compass_category.csv' DELIMITER ',';
-COPY compass_question("id", "description", "category_id", "quiz_id") FROM '/app/compass_question.csv' DELIMITER ','; 
-COPY compass_answer("id", "description", "score", "recommendation", "question_id") FROM '/app/compass_answer.csv' DELIMITER ',';
+COPY compass_category("id", "categoryName") FROM '/test_data/compass_category.csv' DELIMITER ',';
+COPY compass_question("id", "description", "category_id", "quiz_id") FROM '/test_data/compass_question.csv' DELIMITER ',';
+COPY compass_answer("id", "description", "score", "recommendation", "question_id") FROM '/test_data/compass_answer.csv' DELIMITER ',';
 
 
 IF USING INSERTS RATHER THAN IMPORT
@@ -16,7 +16,7 @@ INSERT INTO compass_category("id","categoryName") VALUES(1,'Catastrophe Modeling
 INSERT INTO compass_category("id","categoryName") VALUES(2,'Event Response');
 INSERT INTO compass_category("id","categoryName") VALUES(3,'Exposure and Capacity Management');
 INSERT INTO compass_category("id","categoryName") VALUES(4,'Exposure Data Quality');
-INSERT INTO compass_category("id","categoryName") VALUES(5,'Non-Modeled & High-Frequency Weather Risk');
+INSERT INTO compass_category("id","categoryName") VALUES(5,'Non-Modeled and High-Frequency Weather Risk');
 INSERT INTO compass_category("id","categoryName") VALUES(6,'Risk Binding');
 INSERT INTO compass_category("id","categoryName") VALUES(7,'Risk Profiling');
 INSERT INTO compass_category("id","categoryName") VALUES(8,'Risk Transfer');

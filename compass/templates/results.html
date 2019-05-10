@@ -8,152 +8,168 @@
 {% block content %}
         <div class="row">
             <div class="col align-self-center">
-                <div id="wrapper">
-                    <canvas id="radar"></canvas>
+                <div>
+                    <section>
+                        <canvas id="radar"></canvas>
+                    </section>
                 </div>
             </div>
         </div>
         <div class="row">
                         <div class="col align-self-center">
-                <div id="wrapper">
-                    <canvas id="quadrant"></canvas>
+                <div>
+                    <section>
+                        <canvas id="quadrant"></canvas>
+                    </section>
                 </div>
             </div>
         </div>
-
         <div class="row" style="height:40px;">
         </div>
 
-        <script type="text/javascript">
-            function format_data(maturity, materiality){
-                
-                var data = [];
-                i = 0;
-                maturity.forEach(function(entry) {
-                    data.push({x:entry, y:materiality[i]});
-                    i++;
-                });
-                console.debug(data);
-                return data;
-            };
-            var ctx = document.getElementById('quadrant').getContext('2d');
-            // Define the data 
-            var data = format_data({{maturity }},{{ materiality }});
 
-        // End Defining data
-            var options = {
-                title: {
-                    display: true,
-                    text: 'Maturity vs Materiality'
-                },
-                legend: {
-                    display: false
-                },
-                responsive: true,
-                maintainAspectRation: false,
-                scales:{
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true,
-                            min: 1,
-                            max: 3,
-                            precision: 0,
-                            stepSize: 1
-                        },
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Materiality'
-                        }
-                    }],
-                    xAxes: [{
-                        ticks: {
-                            beginAtZero: false,
-                            min: 1,
-                            max: 5,
-                            precision: 0,
-                            stepSize: 1,
-                        },
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Maturity'
-                        }
-                    }],
-                    
-                }
-            };
+            <script type="text/javascript">
+                function format_data(maturity, materiality){
+
+                    var data = [];
+                    i = 0;
+                    maturity.forEach(function(entry) {
+                        data.push({x:entry, y:materiality[i]});
+                        i++;
+                    });
+                    console.debug(data);
+                    return data;
+                };
+                var ctx = document.getElementById('quadrant').getContext('2d');
+                // Define the data
+                var data = format_data({{maturity }},{{ materiality }});
+                cat = {{ tick_label|safe }}
 
             // End Defining data
-            var myChart = new Chart(ctx, {
-                type: 'scatter',
-                data: {
-                    datasets: [{
-                            label: 'Population', // Name the series
-                            data: data, // Specify the data values array
-                    // borderColor: '#2196f3', // Add custom color border            
-                    // backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
-                    fill: false,
-                    showLine: false,
-                    pointStyle: 'circle',
-                    pointBorderColor: '#0066ff',
-                    pointBackgroundColor: '#80b3ff'
-                        }]
-                },
-                options: options
-            });
-        </script>
-
-        <script type="text/javascript">
-            var ctx = document.getElementById('radar').getContext('2d');
-            Chart.defaults.global.defaultFontColor = 'rgb(73, 73, 73)';
-
-            var chart = new Chart(ctx, {
-                // The type of chart we want to create
-                type: 'radar',
-
-                // The data for our dataset
-                data: {
-                    // labels: ['Data Quality', "Cat Modeling", "Non Modeled", "Profiling Submissions", "Pricing", "Binding", "Capacity Management", "Risk Transfer", "Event Response", "Reporting"],
-                    labels: [{% for label in labels  %}"{{label}}",{% endfor %}],
-                    datasets: [{
-                        label: "Results",
-                        fill: false,
-                        borderColor: 'rgb(196, 32, 50)',
-                        borderWidth: 2,
-                        pointRadius: 3,
-                        pointStyle: 'circle',
-                        pointBackgroundColor: 'rgb(196, 32, 50)',
-                        pointBorderColor: 'rgb(196, 32, 50)',
-                        data: {{maturity}},
-                    }]
-                },
-
-                // Configuration options go here
-                options: {
-                    responsive: true,
-                    maintainAspectRation: false,
+                var options = {
                     tooltips: {
-                        enabled: false
-                    },
-                    legend: {
-                        display: false,
-                    },
-                    scale: {
-                        pointLabels: {
-                            fontSize: 14,
-                            fontFamily: 'Gotham Book',
-                        },
-                        ticks: {
-                            display: false,
-                            min: 0,
-                            max: 5,
-                            stepSize: 1
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+
+                                index = tooltipItem.index;
+
+                                category = cat[index]
+                                label = category + ': ' + tooltipItem.xLabel + ', ' + tooltipItem.yLabel;
+
+                                return label;
+                             }
                         }
                     },
                     title: {
-                    display: true,
-                    text: 'Results across dimensions'
+                        display: true,
+                        text: 'Maturity vs Materiality'
+                    },
+                    legend: {
+                        display: false
+                    },
+                    responsive: true,
+                    maintainAspectRation: false,
+                    scales:{
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                min: 1,
+                                max: 3,
+                                precision: 0,
+                                stepSize: 1
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Materiality'
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                beginAtZero: false,
+                                min: 1,
+                                max: 5,
+                                precision: 0,
+                                stepSize: 1,
+                            },
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Maturity'
+                            }
+                        }],
+
                     }
-                }
-            });
-        </script>
+                };
+
+                // End Defining data
+                var myChart = new Chart(ctx, {
+                    type: 'scatter',
+                    data: {
+                        datasets: [{
+                                label: 'Population', // Name the series
+                                data: data, // Specify the data values array
+                        // borderColor: '#2196f3', // Add custom color border
+                        // backgroundColor: '#2196f3', // Add custom color background (Points and Fill)
+                        fill: false,
+                        showLine: false,
+                        pointStyle: 'circle',
+                        pointBorderColor: '#0066ff',
+                        pointBackgroundColor: '#80b3ff'
+                            }]
+                    },
+                    options: options
+                });
+            </script>
+
+            <script type="text/javascript">
+                var ctx = document.getElementById('radar').getContext('2d');
+                Chart.defaults.global.defaultFontColor = 'rgb(73, 73, 73)';
+                var chart = new Chart(ctx, {
+                    // The type of chart we want to create
+                    type: 'radar',
+
+                    // The data for our dataset
+                    data: {
+                        labels: [{% for label in labels  %}"{{label}}",{% endfor %}],
+                        datasets: [{
+                            label: "Results",
+                            fill: false,
+                            borderColor: 'rgb(196, 32, 50)',
+                            borderWidth: 2,
+                            pointRadius: 3,
+                            pointStyle: 'circle',
+                            pointBackgroundColor: 'rgb(196, 32, 50)',
+                            pointBorderColor: 'rgb(196, 32, 50)',
+                            data: {{maturity}},
+                        }]
+                    },
+
+                    // Configuration options go here
+                    options: {
+                        responsive: true,
+                        maintainAspectRation: false,
+                        tooltips: {
+                            enabled: false
+                        },
+                        legend: {
+                            display: false,
+                        },
+                        scale: {
+                            pointLabels: {
+                                fontSize: 12,
+                                fontFamily: 'Gotham Book',
+                            },
+                            ticks: {
+                                display: false,
+                                min: 0,
+                                max: 5,
+                                stepSize: 1
+                            }
+                        },
+                        title: {
+                        display: true,
+                        text: 'Results across dimensions'
+                        }
+                    }
+                });
+            </script>
 {% endblock %}

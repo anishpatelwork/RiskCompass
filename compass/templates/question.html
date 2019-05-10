@@ -50,10 +50,13 @@
                     <a href="{{question_back}}">
                         <input type="button" class="btn btn-primary send-button tx-tfm" id="backButton" style="float:left;" value="Previous" />
                     </a>
-
             {% endif %}
 
-            <button type="submit" class="btn btn-primary send-button tx-tfm" style="float:right;">Next</button>
+            {% if question.id == 20%}
+                <button type="submit" class="btn btn-primary send-button tx-tfm" style="float:right;">Results</button>
+            {% else %}
+                <button type="submit" class="btn btn-primary send-button tx-tfm" style="float:right;">Next</button>
+            {% endif %}
 
         </div>
      </form>

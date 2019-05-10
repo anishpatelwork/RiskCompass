@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from compass.models import Results, Answer, Question_choice, Question, Business_Priority, Category
 from compass.forms import UserDetailForm, AnswerChoiceForm
 import pandas as pd
+import json
 
 all_Questions = Question.objects.all()
 
@@ -28,7 +29,7 @@ def userdetails(request):
             userdetails.role = form.cleaned_data['role']
             userdetails.save()
             new_rmb(request, userdetails)
-            return redirect(f'/question/1')
+            return redirect(f'/rating')
         else:
             return render(request, 'userdetails.html', {'form': form, 'errors': form.errors})
 
@@ -64,7 +65,7 @@ def get_questions(request, question_id):
             answer_choice.save()
             request.session['last_question'] = question_id
             if (next_question_id > last_question_id):
-                return redirect(f'/rating')
+                return redirect(f'/results')
             else:
                 return redirect(f'/question/{next_question_id}')
 
@@ -84,23 +85,23 @@ def results(request):
     rmb_id = request.session['rmb_id']
     rmb = Results.objects.get(id=rmb_id)
     choices = Question_choice.objects.filter(question_choice=rmb)
-    # scores = {}
     answer_array = []
     for c in choices:
         question = Question.objects.get(id = c.question_id)
-        # print(question.category)
         answer = Answer.objects.get(description = c.answer)
         answer_array.append({question.category.categoryName: answer.score})
     df = pd.DataFrame(answer_array)
     labels = list(df)
     data = list(df.mean())
-
+    tick_label = json.dumps(labels)
     priorities = Business_Priority.objects.filter(results = rmb)
+
     materialityData = []
-    for priority in priorities:        
+    for priority in priorities:
         materiality = float(priority.score)
         materialityData.append(materiality)
-    return render(request, 'results.html', {'maturity': data, 'materiality':materialityData, 'labels': labels})
+
+    return render(request, 'results.html', {'maturity': data, 'materiality':materialityData, 'labels': labels, 'tick_label': tick_label})
 
 
 def rating(request):
@@ -109,15 +110,17 @@ def rating(request):
     rmb_ = Results.objects.get(id=rmb_id)
     categories = list(Category.objects.values_list('categoryName', flat=True))
     if request.method == "POST":
-        # loop over all the categories and pull out the results and create business prioirty objects
-        if Business_Priority.objects.filter(results=rmb_).exists():
-            print("Priorities already exist")
-
+        # loop over all the categories and pull out the results and create business priority objects
         for category in categories:
             score = request.POST.get(category)
             actualCategory = Category.objects.get(categoryName = category)
-            business_priority = Business_Priority(category = actualCategory, score = score, results = rmb_)
-            business_priority.save() 
-        return redirect(f'/results')
+            if Business_Priority.objects.filter(results=rmb_, category= actualCategory).exists():
+                edit_business = Business_Priority.objects.get(results=rmb_, category= actualCategory)
+                edit_business.score = score
+                edit_business.save()
+            else:
+                business_priority = Business_Priority(category = actualCategory, score = score, results = rmb_)
+                business_priority.save()
+        return redirect(f'/question/1')
     
     return render(request, 'businessPriority.html', {'categories': categories, 'last_question': last_question})

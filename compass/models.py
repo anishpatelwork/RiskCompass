@@ -44,6 +44,7 @@ class UserDetails(models.Model):
     email = models.EmailField(unique=True)
     company = models.CharField(max_length=100)
     role = models.CharField(max_length=100)
+    employee = models.CharField(max_length=100)
 
     def __str__(self):
         return ("%s %s" %(self.last_name, self.email))

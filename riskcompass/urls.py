@@ -24,6 +24,6 @@ urlpatterns = [
     path('question/<question_id>', views.get_questions, name='question'),
     path('results', views.results, name='results'),
     path('rating', views.rating, name='rating'),
-    path('userdetails', views.userdetails, name='userdetails'),
+    path('userdetails', views.user_details, name='user_details'),
     path('login', views.login, name='login')
 ]

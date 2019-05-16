@@ -1,15 +1,15 @@
 """ The admin file to edit what to display and how on admin page. """
 from django.contrib import admin
 from .models import Results, Question, Answer,\
-    UserDetails, Quiz, Question_choice, Business_Priority, Category
+    UserDetails, Quiz, QuestionChoice, BusinessPriority, Category
 
 class QuestionChoiceInline(admin.TabularInline):
     """ Display the model QuestionChoice inline for results. """
-    model = Question_choice
+    model = QuestionChoice
 
 class BusinessPriorityInline(admin.TabularInline):
     """ Display the model BusinessPriority inline for results. """
-    model = Business_Priority
+    model = BusinessPriority
 
 
 class ResultsAdmin(admin.ModelAdmin):
@@ -20,7 +20,7 @@ class ResultsAdmin(admin.ModelAdmin):
     ]
 
     @staticmethod
-    def user_email(self, obj):
+    def user_email(obj):
         """ Return the userdetails email for viewing in admin. """
         return obj.userdetails.email
 
@@ -30,8 +30,8 @@ class QuizAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
 
 
-admin.site.register(Business_Priority)
-admin.site.register(Question_choice)
+admin.site.register(BusinessPriority)
+admin.site.register(QuestionChoice)
 admin.site.register(UserDetails)
 admin.site.register(Category)
 admin.site.register(Quiz, QuizAdmin)

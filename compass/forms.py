@@ -1,10 +1,14 @@
+""" All the forms for the compass app. """
 from django import forms
-from .models import UserDetails, Question_choice, Answer, Business_Priority
+from .models import UserDetails, QuestionChoice, Answer
+
 
 class UserDetailForm(forms.ModelForm):
+    """ The user details form when signing in. """
+
     class Meta:
         model = UserDetails
-        fields = ('first_name', 'last_name', 'email', 'company', 'role','employee')
+        fields = ('first_name', 'last_name', 'email', 'company', 'role', 'employee')
 
     def __init__(self, *args, **kwargs):
         super(UserDetailForm, self).__init__(*args, **kwargs)
@@ -37,15 +41,19 @@ class UserDetailForm(forms.ModelForm):
 
 
 class AnswerChoiceForm(forms.ModelForm):
-    answer = forms.ModelChoiceField(queryset=None, empty_label=None, widget=forms.RadioSelect(attrs={'class':'form-radio'}))
+    """ The answer choice form when answering each question. """
+    answer = forms.ModelChoiceField(
+        queryset=None,
+        empty_label=None,
+        widget=forms.RadioSelect(attrs={'class':'form-radio'})
+    )
     comment = forms.CharField(required=False, widget=forms.Textarea())
 
     class Meta:
-        model = Question_choice
+        model = QuestionChoice
         fields = ('answer', 'comment')
-
 
     def __init__(self, question_id, *args, **kwargs):
         super(AnswerChoiceForm, self).__init__(*args, **kwargs)
-        answers = Answer.objects.filter(question = question_id).order_by('score')
+        answers = Answer.objects.filter(question=question_id).order_by('score')
         self.fields["answer"].queryset = answers

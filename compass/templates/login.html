@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row" style="height:20px;">
+    </div>
+    <div class="row">
+        <h2><b>Have you already taken the quiz?</b></h2>
+    </div>
+
+    <div class="row">
+        <form action='' method='POST' name="login">
+            {% csrf_token %}
+            <p>Get your results by entering your email here:</p>
+            <input type="email" class="form-control my-input" id="email" name="result_email" placeholder="Email" />
+            <button class="btn btn-primary float-right" type="submit" style="margin-top:20px;">Results</button>
+        </form>
+    </div>
+    {% if error_message %}
+        <div class="row">
+            <h2 class="error_message"> {{ error_message }}</h2>
+        </div>
+    {% endif %}
+{% endblock %}

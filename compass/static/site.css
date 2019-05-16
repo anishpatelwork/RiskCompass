@@ -192,6 +192,12 @@ label
      cursor: pointer;
 }
 
+.error_message {
+    color:red;
+    font-weight: bold;
+    margin-top:10px;
+}
+
 @media (max-width: 800px) {
     .row {
         display: block;
